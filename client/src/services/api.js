@@ -27,6 +27,30 @@ export const ordersAPI = {
         if (!res.ok) throw new Error('Failed to place order');
         return res.json();
     },
+    getAll: async () => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/orders`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to fetch orders');
+        return res.json();
+    },
+    updateStatus: async (id, statusData) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/orders/${id}/status`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify(statusData),
+        });
+        if (!res.ok) throw new Error('Failed to update order status');
+        return res.json();
+    }
 };
 
 // Contact API
@@ -40,6 +64,28 @@ export const contactAPI = {
         if (!res.ok) throw new Error('Failed to send message');
         return res.json();
     },
+    getAll: async () => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/contact`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to fetch contact messages');
+        return res.json();
+    },
+    markRead: async (id) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/contact/${id}/read`, {
+            method: 'PUT',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to update message status');
+        return res.json();
+    }
 };
 
 // Auth API

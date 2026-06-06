@@ -1,5 +1,6 @@
 import express from 'express';
 import Contact from '../models/Contact.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET all messages (admin)
-router.get('/', async (req, res) => {
+router.get('/', protect, authorize('admin'), async (req, res) => {
     try {
         const messages = await Contact.find().sort({ createdAt: -1 });
         res.json({ success: true, count: messages.length, data: messages });
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
 });
 
 // PUT - Mark message as read
-router.put('/:id/read', async (req, res) => {
+router.put('/:id/read', protect, authorize('admin'), async (req, res) => {
     try {
         const message = await Contact.findByIdAndUpdate(
             req.params.id,

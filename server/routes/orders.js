@@ -1,6 +1,7 @@
 import express from 'express';
 import Order from '../models/Order.js';
 import { sendEmail } from '../utils/sendEmail.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -108,14 +109,13 @@ router.post('/', async (req, res) => {
 });
 
 // GET all orders (admin)
-router.get('/', async (req, res) => {
+router.get('/', protect, authorize('admin'), async (req, res) => {
     try {
         const { status } = req.query;
         let filter = {};
         if (status) filter.status = status;
 
         const orders = await Order.find(filter)
-            .populate('items.product', 'name price image')
             .sort({ createdAt: -1 });
 
         res.json({ success: true, count: orders.length, data: orders });
@@ -125,9 +125,9 @@ router.get('/', async (req, res) => {
 });
 
 // GET single order
-router.get('/:id', async (req, res) => {
+router.get('/:id', protect, async (req, res) => {
     try {
-        const order = await Order.findById(req.params.id).populate('items.product');
+        const order = await Order.findById(req.params.id);
         if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
         res.json({ success: true, data: order });
     } catch (err) {
@@ -136,7 +136,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // PUT - Update order status (admin)
-router.put('/:id/status', async (req, res) => {
+router.put('/:id/status', protect, authorize('admin'), async (req, res) => {
     try {
         const { status, paymentStatus } = req.body;
         const update = {};

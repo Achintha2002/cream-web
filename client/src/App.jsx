@@ -12,6 +12,8 @@ import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminRoute from './components/AdminRoute';
 
 function App() {
     return (
@@ -31,6 +33,11 @@ function App() {
                                 <Route path="/checkout" element={<Checkout />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<Register />} />
+                                <Route path="/admin" element={
+                                    <AdminRoute>
+                                        <AdminDashboard />
+                                    </AdminRoute>
+                                } />
                             </Routes>
                         </main>
                         <Footer />

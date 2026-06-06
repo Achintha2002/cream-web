@@ -60,6 +60,11 @@ const Navbar = () => {
                         {isAuthenticated ? (
                             <div className="flex items-center gap-3 ml-4 bg-green-50 pl-4 pr-2 py-1.5 rounded-full border border-green-100">
                                 <span className="text-sm font-semibold text-green-900">Hi, {user.name.split(' ')[0]}</span>
+                                {user.role === 'admin' && (
+                                    <Link to="/admin" className="text-xs bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-full transition">
+                                        Admin Panel
+                                    </Link>
+                                )}
                                 <button
                                     onClick={logout}
                                     className="px-4 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold rounded-full transition"
@@ -113,6 +118,11 @@ const Navbar = () => {
                 {isAuthenticated ? (
                     <div className="border-t border-green-50 p-6 bg-green-50/50 flex flex-col gap-3">
                         <span className="text-sm font-semibold text-green-900">Logged in as {user.name}</span>
+                        {user.role === 'admin' && (
+                            <Link to="/admin" className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-center text-sm rounded-xl transition" onClick={() => setIsMobileMenuOpen(false)}>
+                                Admin Dashboard
+                            </Link>
+                        )}
                         <button
                             onClick={() => {
                                 logout();
