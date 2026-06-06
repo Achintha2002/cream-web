@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Product from './models/Product.js';
+import User from './models/User.js';
 
 dotenv.config();
 
@@ -66,7 +67,17 @@ const seedDB = async () => {
         const inserted = await Product.insertMany(products);
         console.log(`🌱 ${inserted.length} products seeded successfully!`);
 
-        inserted.forEach(p => console.log(`   ✓ ${p.name} - Rs. ${p.price}`));
+        // Seed Admin User
+        console.log('🌱 Seeding Admin User...');
+        await User.deleteMany({ email: 'admin@raani.lk' });
+        
+        const adminUser = await User.create({
+            name: 'RAANI Admin',
+            email: 'admin@raani.lk',
+            password: 'adminpassword123',
+            role: 'admin'
+        });
+        console.log(`🌿 Default Admin User created: ${adminUser.email}`);
 
     } catch (err) {
         console.error('❌ Seed Error:', err.message);

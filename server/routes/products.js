@@ -1,5 +1,6 @@
 import express from 'express';
 import Product from '../models/Product.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -30,8 +31,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST create product
-router.post('/', async (req, res) => {
+// POST create product (admin only)
+router.post('/', protect, authorize('admin'), async (req, res) => {
     try {
         const { name, description, price, image, category, isFeatured, stock } = req.body;
 
@@ -47,8 +48,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-// PUT update product
-router.put('/:id', async (req, res) => {
+// PUT update product (admin only)
+router.put('/:id', protect, authorize('admin'), async (req, res) => {
     try {
         const product = await Product.findByIdAndUpdate(
             req.params.id,
@@ -62,8 +63,8 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE product
-router.delete('/:id', async (req, res) => {
+// DELETE product (admin only)
+router.delete('/:id', protect, authorize('admin'), async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.id);
         if (!product) return res.status(404).json({ success: false, message: 'Product not found' });

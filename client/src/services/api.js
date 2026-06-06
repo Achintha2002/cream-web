@@ -14,6 +14,43 @@ export const productsAPI = {
         if (!res.ok) throw new Error('Failed to fetch product');
         return res.json();
     },
+    create: async (productData) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/products`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(productData),
+        });
+        if (!res.ok) throw new Error('Failed to create product');
+        return res.json();
+    },
+    update: async (id, productData) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(productData),
+        });
+        if (!res.ok) throw new Error('Failed to update product');
+        return res.json();
+    },
+    delete: async (id) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+            method: 'DELETE',
+            headers: { 
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        if (!res.ok) throw new Error('Failed to delete product');
+        return res.json();
+    }
 };
 
 // Orders API
