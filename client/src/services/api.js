@@ -93,12 +93,27 @@ export const ordersAPI = {
 // Contact API
 export const contactAPI = {
     send: async (formData) => {
+        const token = localStorage.getItem('raani_token');
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
         const res = await fetch(`${API_BASE_URL}/contact`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify(formData),
         });
         if (!res.ok) throw new Error('Failed to send message');
+        return res.json();
+    },
+    getMy: async () => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/contact/my`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to fetch your inquiries');
         return res.json();
     },
     getAll: async () => {
@@ -121,6 +136,19 @@ export const contactAPI = {
             },
         });
         if (!res.ok) throw new Error('Failed to update message status');
+        return res.json();
+    },
+    reply: async (id, replyText) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/contact/${id}/reply`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify({ reply: replyText }),
+        });
+        if (!res.ok) throw new Error('Failed to send reply');
         return res.json();
     }
 };

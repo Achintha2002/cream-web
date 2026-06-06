@@ -33,9 +33,9 @@ const Navbar = () => {
                         <NavLink to="/about" className={linkClasses}>Our Story</NavLink>
                         <NavLink to="/products" className={linkClasses}>Products</NavLink>
                         <NavLink to="/gallery" className={linkClasses}>Gallery</NavLink>
-                        
+
                         {/* Cart Button */}
-                        <button 
+                        <button
                             onClick={() => setIsCartOpen(true)}
                             className="relative p-2 text-gray-600 hover:text-green-800 transition duration-200 focus:outline-none ml-2"
                             aria-label="Open Cart"
@@ -55,11 +55,13 @@ const Navbar = () => {
                                 ? "ml-2 px-6 py-2 bg-green-800 text-white rounded-full shadow-lg shadow-green-200 transform translate-y-0 font-bold cursor-default transition"
                                 : "ml-2 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-800 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5"
                         }>Contact</NavLink>
-
                         {/* Login / Profile status */}
                         {isAuthenticated ? (
-                            <div className="flex items-center gap-3 ml-4 bg-green-50 pl-4 pr-2 py-1.5 rounded-full border border-green-100">
+                            <div className="flex flex-wrap items-center gap-2.5 ml-4 bg-green-50 pl-4 pr-2 py-1.5 rounded-full border border-green-100">
                                 <span className="text-sm font-semibold text-green-900">Hi, {user.name.split(' ')[0]}</span>
+                                <Link to="/my-inquiries" className="text-xs bg-green-800 hover:bg-green-900 text-white font-bold px-3 py-1.5 rounded-full transition">
+                                    My Inquiries
+                                </Link>
                                 {user.role === 'admin' && (
                                     <Link to="/admin" className="text-xs bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-full transition">
                                         Admin Panel
@@ -80,11 +82,11 @@ const Navbar = () => {
                             }>Log In</NavLink>
                         )}
                     </div>
-                    
+
                     {/* Mobile menu button */}
                     <div className="md:hidden flex items-center gap-4">
                         {/* Mobile Cart Button */}
-                        <button 
+                        <button
                             onClick={() => setIsCartOpen(true)}
                             className="relative p-2 text-gray-600 hover:text-green-800 transition duration-200 focus:outline-none"
                             aria-label="Open Cart"
@@ -107,7 +109,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-            
+
             {/* Mobile Menu */}
             <div className={`mobile-menu md:hidden bg-white border-t border-green-100 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
                 <Link to="/" className={mobileLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
@@ -118,11 +120,14 @@ const Navbar = () => {
                 {isAuthenticated ? (
                     <div className="border-t border-green-50 p-6 bg-green-50/50 flex flex-col gap-3">
                         <span className="text-sm font-semibold text-green-900">Logged in as {user.name}</span>
+                        <Link to="/my-inquiries" className="w-full py-2 bg-green-800 hover:bg-green-900 text-white font-bold text-center text-sm rounded-xl transition" onClick={() => setIsMobileMenuOpen(false)}>
+                            My Inquiries
+                        </Link>
                         {user.role === 'admin' && (
                             <Link to="/admin" className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-center text-sm rounded-xl transition" onClick={() => setIsMobileMenuOpen(false)}>
                                 Admin Dashboard
                             </Link>
-                        )}
+                        )} )}
                         <button
                             onClick={() => {
                                 logout();

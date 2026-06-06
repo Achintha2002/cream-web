@@ -13,6 +13,7 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
+import MyInquiries from './pages/MyInquiries';
 import AdminRoute from './components/AdminRoute';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                                 <Route path="/checkout" element={<Checkout />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<Register />} />
+                                <Route path="/my-inquiries" element={<MyInquiries />} />
                                 <Route path="/admin" element={
                                     <AdminRoute>
                                         <AdminDashboard />

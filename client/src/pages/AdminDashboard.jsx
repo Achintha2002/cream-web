@@ -13,6 +13,7 @@ const AdminDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(null); // ID of active operation
     const [error, setError] = useState(null);
+    const [replyTexts, setReplyTexts] = useState({});
 
     // Selected order for detailed modal view
     const [selectedOrder, setSelectedOrder] = useState(null);
@@ -29,9 +30,9 @@ const AdminDashboard = () => {
     });
 
     // Fetch dashboard data
-    const fetchDashboardData = async () => {
+    const fetchDashboardData = async (silent = false) => {
         try {
-            setLoading(true);
+            if (!silent) setLoading(true);
             const [ordersRes, messagesRes, productsRes] = await Promise.all([
                 ordersAPI.getAll(),
                 contactAPI.getAll(),
@@ -44,14 +45,21 @@ const AdminDashboard = () => {
             setError(null);
         } catch (err) {
             console.error('Error fetching admin data:', err);
-            setError('Failed to fetch dashboard data. Please make sure the server is running.');
+            if (!silent) setError('Failed to fetch dashboard data. Please make sure the server is running.');
         } finally {
-            setLoading(false);
+            if (!silent) setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchDashboardData();
+
+        // Real-time polling every 8 seconds
+        const pollInterval = setInterval(() => {
+            fetchDashboardData(true);
+        }, 8000);
+
+        return () => clearInterval(pollInterval);
     }, []);
 
     // Handle Order Status Update
@@ -82,6 +90,22 @@ const AdminDashboard = () => {
             }
         } catch (err) {
             alert('Failed to update message: ' + err.message);
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    // Handle Send Reply to Message
+    const handleSendReply = async (messageId, replyText) => {
+        if (!replyText.trim()) return;
+        try {
+            setActionLoading(`reply_${messageId}`);
+            const res = await contactAPI.reply(messageId, replyText);
+            if (res.success) {
+                setMessages(messages.map(msg => msg._id === messageId ? { ...msg, reply: replyText, isRead: true } : msg));
+            }
+        } catch (err) {
+            alert('Failed to send reply: ' + err.message);
         } finally {
             setActionLoading(null);
         }
@@ -726,7 +750,7 @@ const AdminDashboard = () => {
                                 ) : (
                                     <div className="divide-y divide-slate-100">
                                         {messages.map(msg => (
-                                            <div key={msg._id} className={`py-6 flex flex-col md:flex-row justify-between items-start gap-4 transition-colors ${!msg.isRead ? 'bg-green-50/20 px-4 -mx-4 rounded-2xl border border-green-50' : ''}`}>
+                                            <div key={msg._id} className={`py-6 flex flex-col justify-between gap-4 transition-colors ${!msg.isRead ? 'bg-green-50/20 px-4 -mx-4 rounded-2xl border border-green-50' : ''}`}>
                                                 <div className="flex-1">
                                                     <div className="flex items-center gap-3 mb-2">
                                                         <h3 className="font-bold text-slate-800 text-lg">{msg.subject}</h3>
@@ -735,25 +759,60 @@ const AdminDashboard = () => {
                                                         )}
                                                     </div>
                                                     <p className="text-slate-600 text-sm mb-3 italic">"{msg.message}"</p>
-                                                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
+
+                                                    {/* Reply Box */}
+                                                    {msg.reply ? (
+                                                        <div className="mt-3 p-3.5 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-800 text-sm flex items-start gap-2.5">
+                                                            <span className="text-lg">💬</span>
+                                                            <div>
+                                                                <span className="font-bold text-emerald-900 block text-xs mb-0.5 uppercase tracking-wide">Your Reply:</span>
+                                                                <span className="italic">"{msg.reply}"</span>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="mt-3 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                                            <label className="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Send a Reply:</label>
+                                                            <div className="flex gap-2">
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="Type response here..."
+                                                                    value={replyTexts[msg._id] || ''}
+                                                                    onChange={(e) => setReplyTexts({ ...replyTexts, [msg._id]: e.target.value })}
+                                                                    className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-600"
+                                                                />
+                                                                <button
+                                                                    onClick={async () => {
+                                                                        await handleSendReply(msg._id, replyTexts[msg._id] || '');
+                                                                        setReplyTexts({ ...replyTexts, [msg._id]: '' });
+                                                                    }}
+                                                                    disabled={actionLoading === `reply_${msg._id}`}
+                                                                    className="px-4 py-2 bg-green-800 hover:bg-green-900 text-white font-bold text-xs rounded-xl shadow-sm transition disabled:opacity-50"
+                                                                >
+                                                                    {actionLoading === `reply_${msg._id}` ? 'Sending...' : 'Send'}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400 mt-4 border-t pt-3">
                                                         <span>👤 <strong>Sender:</strong> {msg.name}</span>
                                                         <span>✉️ <strong>Email:</strong> {msg.email}</span>
                                                         {msg.phone && <span>📞 <strong>Phone:</strong> {msg.phone}</span>}
                                                         <span>📅 <strong>Date:</strong> {new Date(msg.createdAt).toLocaleDateString()}</span>
                                                     </div>
                                                 </div>
-                                                <div className="md:self-center">
+                                                <div className="flex items-center justify-between border-t pt-3 mt-1">
                                                     {!msg.isRead ? (
                                                         <button
                                                             onClick={() => handleMarkAsRead(msg._id)}
                                                             disabled={actionLoading === msg._id}
-                                                            className="px-4 py-2 bg-green-800 hover:bg-green-900 text-white font-bold text-xs rounded-xl shadow-sm transition"
+                                                            className="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
                                                         >
                                                             {actionLoading === msg._id ? 'Updating...' : 'Mark as Read'}
                                                         </button>
                                                     ) : (
-                                                        <span className="text-slate-400 text-xs font-bold flex items-center gap-1.5">
-                                                            ✅ Message Read
+                                                        <span className="text-emerald-600 text-xs font-bold flex items-center gap-1.5">
+                                                            ✅ Processed
                                                         </span>
                                                     )}
                                                 </div>
