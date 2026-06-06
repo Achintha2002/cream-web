@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raani Cream - Natural Organic Beauty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            50: '#F2FDF5',   // Very light green background
+                            100: '#DCFCE7',  // Soft green
+                            500: '#22C55E',  // Vibrant green
+                            600: '#16A34A',  // Primary Green
+                            800: '#166534',  // Deep Green text
+                            900: '#14532D',  // Darkest Green
+                        },
+                        earth: {
+                            50: '#FAFAF9',   // Stone white
+                            100: '#F5F5F4',  // Warm grey
+                            200: '#E7E5E4',  // Stone
+                        },
+                        gold: {
+                            500: '#D4AF37', // Keeping subtle gold accents
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'leaf-sway': 'sway 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        sway: {
+                            '0%, 100%': { transform: 'rotate(-5deg)' },
+                            '50%': { transform: 'rotate(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(22, 163, 74, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #16A34A, #14532D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-earth-50 text-gray-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html"
+                        class="font-serif text-3xl font-bold text-green-800 tracking-wider flex items-center gap-2">
+                        <span class="text-4xl text-green-600">🌿</span> RAANI
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-4 items-center">
+                    <a href="index.html"
+                        class="bg-green-200 text-green-900 font-bold px-3 py-2 rounded-md transition font-medium">Home</a>
+                    <a href="about.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Our
+                        Story</a>
+                    <a href="products.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Products</a>
+                    <a href="gallery.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Gallery</a>
+                    <a href="contact.html"
+                        class="ml-4 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-800 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5">Contact</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button focus:outline-none">
+                        <svg class="w-6 h-6 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden bg-white border-t border-green-100">
+            <a href="index.html" class="block py-4 px-6 text-sm hover:bg-green-50 text-gray-700">Home</a>
+            <a href="about.html" class="block py-4 px-6 text-sm hover:bg-green-50 text-gray-700">Our Story</a>
+            <a href="products.html" class="block py-4 px-6 text-sm hover:bg-green-50 text-gray-700">Products</a>
+            <a href="gallery.html" class="block py-4 px-6 text-sm hover:bg-green-50 text-gray-700">Gallery</a>
+            <a href="contact.html" class="block py-4 px-6 text-sm hover:bg-green-50 text-gray-700">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-24 bg-green-50 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-2/3 h-full bg-green-100/40 rounded-l-[200px] hidden lg:block"></div>
+        <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-green-200/30 rounded-full blur-3xl"></div>
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <div class="space-y-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <span
+                    class="inline-block px-4 py-1.5 bg-green-100 text-green-800 rounded-full text-sm font-bold tracking-wide uppercase mb-2 border border-green-200">100%
+                    Organic & Pure</span>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight text-green-900">
+                    Nature's Best Secret <br>
+                    <span class="text-green-600">For Your Skin</span>
+                </h1>
+                <p class="text-xl text-gray-600 max-w-lg leading-relaxed">
+                    Embrace the healing power of Aloe Vera and pure botanicals. Raani Cream brings you "supiri" natural
+                    radiance, free from harsh chemicals.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="products.html"
+                        class="px-8 py-4 bg-green-700 text-white text-lg rounded-full hover:bg-green-800 transition shadow-xl hover:shadow-green-200 transform hover:-translate-y-1 text-center">Shop
+                        Naturally</a>
+                    <a href="about.html"
+                        class="px-8 py-4 border-2 border-green-700 text-green-700 text-lg rounded-full hover:bg-green-50 transition text-center font-medium">Our
+                        Ingredients</a>
+                </div>
+            </div>
+
+            <div class="relative opacity-0 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="relative z-10 animate-float">
+                    <!-- Showing the Organic Mockup as Hero -->
+                    <img src="./images/mockup_organic.png" alt="Raani Organic Cream in Nature"
+                        class="w-full max-w-lg mx-auto drop-shadow-2xl rounded-tr-[80px] rounded-bl-[80px] rounded-tl-3xl rounded-br-3xl border-4 border-white">
+                </div>
+                <!-- Leaf decorations -->
+                <div class="absolute -top-10 right-10 text-6xl animate-leaf-sway" style="animation-delay: 1s;">🌿</div>
+                <div class="absolute bottom-10 -left-5 text-5xl animate-leaf-sway" style="animation-delay: 2s;">🌱</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-green-900 mb-4">Pure. Potent. Plant-Based.</h2>
+                <div class="w-20 h-1.5 bg-green-500 mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-600">The organic choice for glowing skin.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div
+                    class="text-center group p-8 rounded-2xl bg-earth-50 hover:bg-green-50 transition duration-300 border border-transparent hover:border-green-100">
+                    <div
+                        class="w-20 h-20 mx-auto bg-white shadow-md rounded-full flex items-center justify-center mb-6 text-4xl">
+                        🍃
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-3 text-green-800">Fresh Aloe Vera</h3>
+                    <p class="text-gray-600">Harvested fresh to soothe and hydrate your skin deeply.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div
+                    class="text-center group p-8 rounded-2xl bg-earth-50 hover:bg-green-50 transition duration-300 border border-transparent hover:border-green-100">
+                    <div
+                        class="w-20 h-20 mx-auto bg-white shadow-md rounded-full flex items-center justify-center mb-6 text-4xl">
+                        🐰
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-3 text-green-800">Cruelty Free</h3>
+                    <p class="text-gray-600">Tested on queens, never on animals. 100% ethical.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div
+                    class="text-center group p-8 rounded-2xl bg-earth-50 hover:bg-green-50 transition duration-300 border border-transparent hover:border-green-100">
+                    <div
+                        class="w-20 h-20 mx-auto bg-white shadow-md rounded-full flex items-center justify-center mb-6 text-4xl">
+                        ✨
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-3 text-green-800">Natural Glow</h3>
+                    <p class="text-gray-600">Unlock that "supiri" radiance with pure saffron extracts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section (Green Theme) -->
+    <section class="relative py-24 bg-green-900 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <!-- Using ingredients image as background texture -->
+            <img src="./images/ingredients.png" alt="Ingredients" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Hydration That Feels Like Rain
+                </h2>
+                <p class="text-green-100 text-lg mb-8 max-w-md leading-relaxed">
+                    Our formula mimics nature's moisture. Light, refreshing, and deeply nourishing. Experience the
+                    purity of Raani Organic.
+                </p>
+                <a href="products.html"
+                    class="inline-block px-8 py-3 bg-white text-green-900 rounded-full hover:bg-green-50 transition font-bold shadow-lg">Experience
+                    Freshness</a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="./images/ui_nature.png" alt="Raani Nature UI"
+                    class="relative rounded-lg border-4 border-white/20 w-full max-w-md shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-green-900">Loved by Nature Lovers</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-green-50 p-8 rounded-tr-3xl rounded-bl-3xl shadow-sm border border-green-100">
+                    <div class="flex text-green-500 mb-4">★★★★★</div>
+                    <p class="text-gray-700 italic mb-6">"Finally an organic cream that works! My skin feels so fresh
+                        and the aloe scent is amazing. Supiri stuff!"</p>
+                    <div class="flex items-center">
+                        <div
+                            class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold mr-3">
+                            S</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Shenali P.</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 2 -->
+                <div class="bg-green-50 p-8 rounded-tr-3xl rounded-bl-3xl shadow-sm border border-green-100">
+                    <div class="flex text-green-500 mb-4">★★★★★</div>
+                    <p class="text-gray-700 italic mb-6">"I switched to Raani because it's natural. Best decision ever.
+                        No more chemicals, just pure glow."</p>
+                    <div class="flex items-center">
+                        <div
+                            class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold mr-3">
+                            D</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Dilhani K.</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 3 -->
+                <div class="bg-green-50 p-8 rounded-tr-3xl rounded-bl-3xl shadow-sm border border-green-100">
+                    <div class="flex text-green-500 mb-4">★★★★★</div>
+                    <p class="text-gray-700 italic mb-6">"Nature in a jar. Seriously, the texture is so light. Loves
+                        it!"</p>
+                    <div class="flex items-center">
+                        <div
+                            class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold mr-3">
+                            A</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Amasha S.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-900 text-white pt-16 pb-8 border-t-4 border-green-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h3 class="text-3xl font-serif font-bold text-green-400 mb-6 flex items-center gap-2">🌿 RAANI</h3>
+                    <p class="text-green-100">Unveiling your natural beauty with the purest ingredients from Mother
+                        Earth.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-green-300">Quick Links</h4>
+                    <ul class="space-y-3 text-green-100">
+                        <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="hover:text-white transition">Our Story</a></li>
+                        <li><a href="products.html" class="hover:text-white transition">Products</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-green-300">Contact</h4>
+                    <ul class="space-y-3 text-green-100">
+                        <li>No. 12, Lotus Road, Colombo 03</li>
+                        <li>+94 77 123 4567</li>
+                        <li>hello@raani.lk</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-green-300">Join the Green Movement</h4>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email"
+                            class="bg-green-800 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-green-400 w-full placeholder-green-400 border border-green-700">
+                        <button
+                            class="bg-white text-green-900 px-4 py-2 rounded-r-lg font-bold hover:bg-green-100 transition">Go</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-green-800 pt-8 text-center text-green-400 text-sm">
+                &copy; 2024 Raani Cream. 100% Organic. Designed with 💚.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.querySelector('button.mobile-menu-button');
+        const menu = document.querySelector('.mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

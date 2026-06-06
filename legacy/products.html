@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Products - Raani Organic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            50: '#F2FDF5',
+                            100: '#DCFCE7',
+                            600: '#16A34A',
+                            800: '#166534',
+                            900: '#14532D',
+                        },
+                        earth: {
+                            50: '#FAFAF9',
+                            100: '#F5F5F4',
+                            200: '#E7E5E4',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur shadow-sm border-b border-green-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <a href="index.html"
+                    class="font-serif text-3xl font-bold text-green-800 tracking-wider flex items-center gap-2">
+                    <span class="text-4xl text-green-600">🌿</span> RAANI
+                </a>
+                <div class="hidden md:flex space-x-4 items-center">
+                    <a href="index.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Home</a>
+                    <a href="about.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Our
+                        Story</a>
+                    <a href="products.html"
+                        class="bg-green-200 text-green-900 font-bold px-3 py-2 rounded-md transition font-medium">Products</a>
+                    <a href="gallery.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Gallery</a>
+                    <a href="contact.html"
+                        class="ml-4 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-800 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-36 pb-20 bg-green-50 text-center relative">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="w-96 h-96 bg-green-200 rounded-full blur-3xl absolute -top-20 -left-20 opacity-30"></div>
+            <div class="w-96 h-96 bg-yellow-100 rounded-full blur-3xl absolute bottom-0 right-0 opacity-30"></div>
+        </div>
+        <h1 class="text-5xl font-serif font-bold text-green-900 mb-4 relative z-10">The Organic Collection</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto relative z-10">Safe, clean, and effective skincare straight
+            from nature.</p>
+    </header>
+
+    <!-- Products Grid -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+                <!-- Product 1 -->
+                <div
+                    class="group relative bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 transform hover:-translate-y-2">
+                    <div class="h-80 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
+                        <img src="./images/mockup_organic.png" alt="Raani Aloe Vera Gel"
+                            class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition duration-500 shadow-md">
+                        <div
+                            class="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                            100% PURE</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="text-green-600 text-sm font-bold mb-2 uppercase tracking-wide">Daily Essential</div>
+                        <h3 class="text-2xl font-serif font-bold mb-2 text-green-900">Raani Aloe Radiance</h3>
+                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Pure aloe vera with saffron infusion for
+                            everyday hydration.</p>
+                        <div class="flex justify-between items-center border-t border-green-50 pt-6">
+                            <span class="text-2xl font-bold text-green-800">LKR 2,500</span>
+                            <button
+                                class="bg-green-800 text-white px-6 py-2 rounded-full hover:bg-green-700 transition shadow-lg hover:shadow-green-200">Add
+                                to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div
+                    class="group relative bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 transform hover:-translate-y-2">
+                    <div class="h-80 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
+                        <!-- Using new organic night cream image -->
+                        <img src="./images/mockup_night_organic.png" alt="Raani Night Repair"
+                            class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition duration-500 shadow-md">
+                    </div>
+                    <div class="p-8">
+                        <div class="text-green-600 text-sm font-bold mb-2 uppercase tracking-wide">Intensive Care</div>
+                        <h3 class="text-2xl font-serif font-bold mb-2 text-green-900">Raani Botanical Night</h3>
+                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Deep nourishment with avocado and
+                            essential oils.</p>
+                        <div class="flex justify-between items-center border-t border-green-50 pt-6">
+                            <span class="text-2xl font-bold text-green-800">LKR 3,200</span>
+                            <button
+                                class="bg-green-800 text-white px-6 py-2 rounded-full hover:bg-green-700 transition shadow-lg hover:shadow-green-200">Add
+                                to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div
+                    class="group relative bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 transform hover:-translate-y-2">
+                    <div class="h-80 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
+                        <img src="./images/mockup_minimalist.png" alt="Raani Gentle Cleanser"
+                            class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition duration-500 shadow-md">
+                    </div>
+                    <div class="p-8">
+                        <div class="text-green-600 text-sm font-bold mb-2 uppercase tracking-wide">Cleansing</div>
+                        <h3 class="text-2xl font-serif font-bold mb-2 text-green-900">Raani Gentle Foam</h3>
+                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Sulfate-free cleanser that purifies
+                            without drying.</p>
+                        <div class="flex justify-between items-center border-t border-green-50 pt-6">
+                            <span class="text-2xl font-bold text-green-800">LKR 1,800</span>
+                            <button
+                                class="bg-green-800 text-white px-6 py-2 rounded-full hover:bg-green-700 transition shadow-lg hover:shadow-green-200">Add
+                                to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="py-20 bg-green-800 text-white text-center relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-64 h-64 bg-green-700 rounded-full opacity-50 blur-3xl transform translate-x-1/2 -translate-y-1/2">
+        </div>
+        <div class="relative z-10">
+            <h2 class="text-4xl font-serif font-bold mb-6">Go Green, Glow Clean</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto text-green-100">Starter kit with all 3 essentials for complete
+                natural care.</p>
+            <button
+                class="bg-white text-green-900 px-10 py-4 rounded-full font-bold text-lg hover:bg-green-50 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1">Get
+                the Green Kit - LKR 6,500</button>
+        </div>
+    </section>
+
+    <footer class="bg-green-900 text-white py-12 text-center text-sm border-t border-green-800">
+        <p>&copy; 2024 Raani Organic. 💚 Pure & Natural.</p>
+    </footer>
+</body>
+
+</html>

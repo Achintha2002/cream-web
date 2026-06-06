@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Raani Organic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            50: '#F2FDF5',
+                            100: '#DCFCE7',
+                            600: '#16A34A',
+                            800: '#166534',
+                            900: '#14532D',
+                        },
+                        earth: {
+                            50: '#FAFAF9',
+                            100: '#F5F5F4',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-earth-50 text-gray-800 font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur shadow-sm border-b border-green-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <a href="index.html"
+                    class="font-serif text-3xl font-bold text-green-800 tracking-wider flex items-center gap-2">
+                    <span class="text-4xl text-green-600">🌿</span> RAANI
+                </a>
+                <div class="hidden md:flex space-x-4 items-center">
+                    <a href="index.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Home</a>
+                    <a href="about.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Our
+                        Story</a>
+                    <a href="products.html"
+                        class="text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium">Products</a>
+                    <a href="gallery.html"
+                        class="bg-green-200 text-green-900 font-bold px-3 py-2 rounded-md transition font-medium">Gallery</a>
+                    <a href="contact.html"
+                        class="ml-4 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-800 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-36 pb-20 bg-green-50 text-center">
+        <h1 class="text-4xl font-serif font-bold text-green-900 mb-4">Raani Through The Lens</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Visualizing the organic purity in every drop.</p>
+    </header>
+
+    <!-- Designs Grid -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="space-y-24">
+
+                <!-- Use the Nature one first since it matches the theme -->
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="md:w-1/2">
+                        <img src="./images/ui_nature.png" alt="Nature UI Design"
+                            class="w-full rounded-2xl shadow-2xl border-4 border-green-100 transform hover:scale-[1.02] transition duration-500">
+                    </div>
+                    <div class="md:w-1/2">
+                        <span class="text-green-600 font-bold tracking-wider uppercase text-sm mb-2 block">Current
+                            Theme</span>
+                        <h2 class="text-4xl font-serif font-bold mb-6 text-green-900">Organic Harmony</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            This is the live theme of the website. It celebrates the freshness of Aloe Vera and nature.
+                            Soft greens and earthy tones create a calming, eco-conscious vibe perfect for our organic
+                            mission.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concept 2: Royal -->
+                <div
+                    class="flex flex-col md:flex-row-reverse gap-12 items-center opacity-80 hover:opacity-100 transition duration-500">
+                    <div class="md:w-1/2">
+                        <img src="./images/ui_royal.png" alt="Royal UI Design"
+                            class="w-full rounded-2xl shadow-xl border-4 border-gray-100 filter grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                    <div class="md:w-1/2">
+                        <span class="text-gray-400 font-bold tracking-wider uppercase text-sm mb-2 block">Concept</span>
+                        <h2 class="text-3xl font-serif font-bold mb-4 text-gray-800">The Royal Edition</h2>
+                        <p class="text-gray-600 mb-4">A darker, more luxurious take. Uses deep purples and gold
+                            gradients for an exclusive night-time ritual feel.</p>
+                    </div>
+                </div>
+
+                <!-- Concept 3: Minimalist -->
+                <div
+                    class="flex flex-col md:flex-row gap-12 items-center opacity-80 hover:opacity-100 transition duration-500">
+                    <div class="md:w-1/2">
+                        <img src="./images/ui_minimalist.png" alt="Minimalist UI Design"
+                            class="w-full rounded-2xl shadow-xl border-4 border-gray-100 filter grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                    <div class="md:w-1/2">
+                        <span class="text-gray-400 font-bold tracking-wider uppercase text-sm mb-2 block">Concept</span>
+                        <h2 class="text-3xl font-serif font-bold mb-4 text-gray-800">Pure Minimalist</h2>
+                        <p class="text-gray-600 mb-4">Focusing purely on clinical effectiveness. Ultra-clean white
+                            interface with generous whitespace.</p>
+                    </div>
+                </div>
+
+                <!-- Concept 4: Trendy -->
+                <div
+                    class="flex flex-col md:flex-row-reverse gap-12 items-center opacity-80 hover:opacity-100 transition duration-500">
+                    <div class="md:w-1/2">
+                        <img src="./images/ui_trendy.png" alt="Trendy UI Design"
+                            class="w-full rounded-2xl shadow-xl border-4 border-gray-100 filter grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                    <div class="md:w-1/2">
+                        <span class="text-gray-400 font-bold tracking-wider uppercase text-sm mb-2 block">Concept</span>
+                        <h2 class="text-3xl font-serif font-bold mb-4 text-gray-800">Rose Gold Glamour</h2>
+                        <p class="text-gray-600 mb-4">A vibrant, high-fashion magazine aesthetic with rose gold accents
+                            and bold typography.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-green-900 text-white py-12 text-center text-sm border-t border-green-800">
+        <p>&copy; 2024 Raani Organic. 💚 Pure & Natural.</p>
+    </footer>
+</body>
+
+</html>
