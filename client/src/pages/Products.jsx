@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { productsAPI } from '../services/api';
+import { useCart } from '../context/CartContext';
 
 // Image map for local product images
 const imageMap = {
@@ -12,7 +13,7 @@ const imageMap = {
 
 const getImage = (imgPath) => imageMap[imgPath] || imgPath;
 
-const ProductCard = ({ product }) => (
+const ProductCard = ({ product, onAddToCart }) => (
     <div className="group relative bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 transform hover:-translate-y-2">
         <div className="h-80 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
             <img
@@ -39,6 +40,7 @@ const ProductCard = ({ product }) => (
                 <span className="text-2xl font-bold text-green-800">LKR {product.price.toLocaleString()}</span>
                 <button
                     disabled={product.stock === 0}
+                    onClick={() => onAddToCart(product)}
                     className="bg-green-800 text-white px-6 py-2 rounded-full hover:bg-green-700 transition shadow-lg hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {product.stock === 0 ? 'Sold Out' : 'Add to Cart'}
@@ -53,6 +55,7 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeCategory, setActiveCategory] = useState('All');
+    const { addToCart } = useCart();
 
     const categories = ['All', 'Face Cream', 'Serum', 'Night Cream', 'Moisturizer'];
 
@@ -126,7 +129,7 @@ const Products = () => {
                     {!loading && !error && products.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                             {products.map(product => (
-                                <ProductCard key={product._id} product={product} />
+                                <ProductCard key={product._id} product={product} onAddToCart={addToCart} />
                             ))}
                         </div>
                     )}
