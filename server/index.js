@@ -3,17 +3,24 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+import productRoutes from './routes/products.js';
+import orderRoutes from './routes/orders.js';
+import contactRoutes from './routes/contact.js';
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 
 // Database Connection
-// Replace <YOUR_MONGODB_URI> with your actual connection string from MongoDB Atlas
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/raani_cream';
 
 mongoose.connect(MONGODB_URI)
@@ -21,13 +28,34 @@ mongoose.connect(MONGODB_URI)
     .catch((err) => console.error('❌ MongoDB Connection Error:', err));
 
 // Routes
-// app.use('/api/products', productRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/contact', contactRoutes);
 
-// Basic Route for testing
+// Health Check
 app.get('/', (req, res) => {
-    res.send('Raani Cream API is running');
+    res.json({
+        message: '🌿 Raani Cream API is running',
+        version: '1.0.0',
+        endpoints: {
+            products: '/api/products',
+            orders: '/api/orders',
+            contact: '/api/contact',
+        }
+    });
+});
+
+// 404 Handler
+app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!', error: err.message });
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
