@@ -1,4 +1,5 @@
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const imageMap = {
     '/images/mockup_royal.png': new URL('../assets/images/mockup_royal.png', import.meta.url).href,
@@ -11,6 +12,7 @@ const getImage = (img) => imageMap[img] || img;
 
 const CartDrawer = () => {
     const { cartItems, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalItems, totalPrice, clearCart } = useCart();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -119,7 +121,7 @@ const CartDrawer = () => {
                             </div>
                             <div className="flex justify-between text-sm text-gray-600">
                                 <span>Delivery</span>
-                                <span className="text-green-600 font-medium">Free 🌿</span>
+                                <span>Free 🌿</span>
                             </div>
                             <div className="flex justify-between text-lg font-bold text-green-900 pt-2 border-t border-green-100">
                                 <span>Total</span>
@@ -128,7 +130,13 @@ const CartDrawer = () => {
                         </div>
 
                         {/* Checkout Button */}
-                        <button className="w-full py-4 bg-green-800 text-white font-bold rounded-2xl hover:bg-green-900 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5 text-lg">
+                        <button 
+                            onClick={() => {
+                                setIsCartOpen(false);
+                                navigate('/checkout');
+                            }}
+                            className="w-full py-4 bg-green-800 text-white font-bold rounded-2xl hover:bg-green-900 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5 text-lg"
+                        >
                             Checkout 🛍️
                         </button>
                         <button
