@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import productRoutes from './routes/products.js';
 import orderRoutes from './routes/orders.js';
 import contactRoutes from './routes/contact.js';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ mongoose.connect(MONGODB_URI)
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/auth', authRoutes);
 
 // Health Check
 app.get('/', (req, res) => {

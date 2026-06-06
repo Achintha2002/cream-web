@@ -41,3 +41,42 @@ export const contactAPI = {
         return res.json();
     },
 };
+
+// Auth API
+export const authAPI = {
+    register: async (userData) => {
+        const res = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData),
+        });
+        if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.message || 'Registration failed');
+        }
+        return res.json();
+    },
+    login: async (credentials) => {
+        const res = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(credentials),
+        });
+        if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.message || 'Login failed');
+        }
+        return res.json();
+    },
+    getMe: async (token) => {
+        const res = await fetch(`${API_BASE_URL}/auth/me`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to fetch user profiles');
+        return res.json();
+    }
+};
+

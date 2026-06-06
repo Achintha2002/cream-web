@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { totalItems, setIsCartOpen } = useCart();
+    const { user, logout, isAuthenticated } = useAuth();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -15,7 +17,7 @@ const Navbar = () => {
             ? "bg-green-200 text-green-900 font-bold px-3 py-2 rounded-md transition font-medium"
             : "text-gray-600 hover:bg-green-200 hover:text-green-900 px-3 py-2 rounded-md transition font-medium";
 
-    const mobileLinkClasses = "block py-4 px-6 text-sm hover:bg-green-50 text-gray-700";
+    const mobileLinkClasses = "block py-4 px-6 text-sm hover:bg-green-50 text-gray-700 font-medium";
 
     return (
         <nav className="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
@@ -53,7 +55,27 @@ const Navbar = () => {
                                 ? "ml-2 px-6 py-2 bg-green-800 text-white rounded-full shadow-lg shadow-green-200 transform translate-y-0 font-bold cursor-default transition"
                                 : "ml-2 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-800 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5"
                         }>Contact</NavLink>
+
+                        {/* Login / Profile status */}
+                        {isAuthenticated ? (
+                            <div className="flex items-center gap-3 ml-4 bg-green-50 pl-4 pr-2 py-1.5 rounded-full border border-green-100">
+                                <span className="text-sm font-semibold text-green-900">Hi, {user.name.split(' ')[0]}</span>
+                                <button
+                                    onClick={logout}
+                                    className="px-4 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold rounded-full transition"
+                                >
+                                    Log Out
+                                </button>
+                            </div>
+                        ) : (
+                            <NavLink to="/login" className={({ isActive }) =>
+                                isActive
+                                    ? "ml-4 text-green-900 font-bold px-3 py-2 rounded-md"
+                                    : "ml-4 text-gray-600 hover:text-green-800 px-3 py-2 rounded-md font-semibold"
+                            }>Log In</NavLink>
+                        )}
                     </div>
+                    
                     {/* Mobile menu button */}
                     <div className="md:hidden flex items-center gap-4">
                         {/* Mobile Cart Button */}
@@ -80,6 +102,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+            
             {/* Mobile Menu */}
             <div className={`mobile-menu md:hidden bg-white border-t border-green-100 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
                 <Link to="/" className={mobileLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
@@ -87,6 +110,22 @@ const Navbar = () => {
                 <Link to="/products" className={mobileLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Products</Link>
                 <Link to="/gallery" className={mobileLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
                 <Link to="/contact" className={mobileLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+                {isAuthenticated ? (
+                    <div className="border-t border-green-50 p-6 bg-green-50/50 flex flex-col gap-3">
+                        <span className="text-sm font-semibold text-green-900">Logged in as {user.name}</span>
+                        <button
+                            onClick={() => {
+                                logout();
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className="w-full py-2 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold rounded-xl transition"
+                        >
+                            Log Out
+                        </button>
+                    </div>
+                ) : (
+                    <Link to="/login" className="block py-4 px-6 text-sm bg-green-50 text-green-800 font-bold hover:bg-green-100" onClick={() => setIsMobileMenuOpen(false)}>Log In</Link>
+                )}
             </div>
         </nav>
     );
