@@ -6,6 +6,9 @@ import { useCart } from '../context/CartContext';
 const imageMap = {
     '/images/mockup_royal.png': new URL('../assets/images/mockup_royal.png', import.meta.url).href,
     '/images/mockup_ethereal.png': new URL('../assets/images/mockup_ethereal.png', import.meta.url).href,
+    '/images/mockup_serum_ethereal.png': new URL('../assets/images/mockup_serum_ethereal.png', import.meta.url).href,
+    '/images/mockup_cleanser_saffron.png': new URL('../assets/images/mockup_cleanser_saffron.png', import.meta.url).href,
+    '/images/mockup_toner_teatree.png': new URL('../assets/images/mockup_toner_teatree.png', import.meta.url).href,
     '/images/mockup_night_organic.png': new URL('../assets/images/mockup_night_organic.png', import.meta.url).href,
     '/images/mockup_minimalist.png': new URL('../assets/images/mockup_minimalist.png', import.meta.url).href,
     '/images/mockup_organic.png': new URL('../assets/images/mockup_organic.png', import.meta.url).href,

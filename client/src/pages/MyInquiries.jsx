@@ -202,6 +202,7 @@ const MyInquiries = () => {
                                                 </span>
                                             </div>
                                             <p className="text-xs text-slate-600 italic">"{inq.message}"</p>
+                                            {inq.phone && <p className="text-[11px] text-slate-500 mt-1 font-medium">📞 {inq.phone}</p>}
 
                                             {/* Admin Reply Display */}
                                             {inq.reply && (
