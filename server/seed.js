@@ -109,7 +109,7 @@ const products = [
         name: 'Wild Turmeric & Neem Healing Soap',
         description: 'Traditional Ayurvedic bar with fresh neem extract and wild turmeric. Acts as a natural antibacterial shield to heal rashes, blemishes, and protect skin health.',
         price: 590,
-        image: '/images/mockup_royal.png',
+        image: '/images/mockup_soap_turmeric.png',
         category: 'Soap',
         isFeatured: true,
         stock: 130,
