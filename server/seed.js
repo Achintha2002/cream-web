@@ -172,7 +172,7 @@ const products = [
         name: 'Saffron & Gold Illuminating Face Wash',
         description: 'Luxurious gel cleanser that gently removes makeup, dirt, and excess oil. Promotes a glowing, luminous look with real saffron threads.',
         price: 1450,
-        image: '/images/mockup_royal.png',
+        image: '/images/mockup_cleanser_saffron.png',
         category: 'Cleanser',
         isFeatured: true,
         stock: 70,
