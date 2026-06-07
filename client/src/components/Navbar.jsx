@@ -25,8 +25,8 @@ const Navbar = () => {
                 <div className="flex justify-between items-center h-24">
                     <div className="flex-shrink-0 flex items-center">
                         <Link to="/" className="flex items-center">
-                            <div className="w-36 h-24 overflow-hidden flex items-center justify-center mix-blend-multiply">
-                                <img src={logoImg} alt="Raani Cream Logo" className="w-full h-auto scale-[1.7]" />
+                            <div className="w-32 h-24 overflow-hidden flex items-center justify-center mix-blend-multiply">
+                                <img src={logoImg} alt="Raani Cream Logo" className="w-full h-auto scale-[1.4]" />
                             </div>
                         </Link>
                     </div>
