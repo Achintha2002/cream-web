@@ -12,7 +12,7 @@ const getOptionalUser = (req) => {
         const authHeader = req.headers.authorization;
         if (authHeader && authHeader.startsWith('Bearer')) {
             const token = authHeader.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_key_123');
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'raani_secret_jwt_key_123456');
             return decoded.id;
         }
     } catch (err) {
