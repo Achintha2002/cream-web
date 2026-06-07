@@ -19,7 +19,7 @@ const products = [
         name: 'Ethereal Glow Serum',
         description: 'Lightweight yet powerful serum infused with hyaluronic acid and vitamin C. Reduces dark spots and gives skin an ethereal luminous finish.',
         price: 3200,
-        image: '/images/mockup_ethereal.png',
+        image: '/images/mockup_serum_ethereal.png',
         category: 'Serum',
         isFeatured: true,
         stock: 35,
