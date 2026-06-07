@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-
+import logoImg from '../assets/images/logo.png';
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { totalItems, setIsCartOpen } = useCart();
@@ -24,8 +24,8 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-24">
                     <div className="flex-shrink-0 flex items-center">
-                        <Link to="/" className="font-serif text-3xl font-bold text-green-800 tracking-wider flex items-center gap-2">
-                            <span className="text-4xl text-green-600">🌿</span> RAANI
+                        <Link to="/" className="flex items-center gap-2">
+                            <img src={logoImg} alt="Raani Cream Logo" className="h-16" />
                         </Link>
                     </div>
                     <div className="hidden md:flex space-x-4 items-center">

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoImg from '../assets/images/logo.png';
 
 const Footer = () => {
     return (
@@ -6,7 +7,7 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     <div>
-                        <h3 className="text-3xl font-serif font-bold text-green-400 mb-6 flex items-center gap-2">🌿 RAANI</h3>
+                        <img src={logoImg} alt="Raani Cream Logo" className="h-16 mb-4 bg-white p-1 rounded-xl" />
                         <p className="text-green-100">Unveiling your natural beauty with the purest ingredients from Mother
                             Earth.</p>
                     </div>

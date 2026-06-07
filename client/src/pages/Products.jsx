@@ -9,6 +9,20 @@ const imageMap = {
     '/images/mockup_night_organic.png': new URL('../assets/images/mockup_night_organic.png', import.meta.url).href,
     '/images/mockup_minimalist.png': new URL('../assets/images/mockup_minimalist.png', import.meta.url).href,
     '/images/mockup_organic.png': new URL('../assets/images/mockup_organic.png', import.meta.url).href,
+    '/images/mockup_soap_honey.png': new URL('../assets/images/mockup_soap_honey.png', import.meta.url).href,
+    '/images/mockup_soap_charcoal.png': new URL('../assets/images/mockup_soap_charcoal.png', import.meta.url).href,
+    '/images/mockup_serum_vitc.png': new URL('../assets/images/mockup_serum_vitc.png', import.meta.url).href,
+    '/images/mockup_toner_rose.png': new URL('../assets/images/mockup_toner_rose.png', import.meta.url).href,
+    '/images/mockup_cleanser_lavender.png': new URL('../assets/images/mockup_cleanser_lavender.png', import.meta.url).href,
+    '/images/mockup_soap_oatmeal.png': new URL('../assets/images/mockup_soap_oatmeal.png', import.meta.url).href,
+    '/images/mockup_soap_turmeric.png': new URL('../assets/images/mockup_soap_turmeric.png', import.meta.url).href,
+    '/images/mockup_moisturizer_aloe.png': new URL('../assets/images/mockup_moisturizer_aloe.png', import.meta.url).href,
+    '/images/mockup_moisturizer_coconut.png': new URL('../assets/images/mockup_moisturizer_coconut.png', import.meta.url).href,
+    '/images/mockup_moisturizer_spf.png': new URL('../assets/images/mockup_moisturizer_spf.png', import.meta.url).href,
+    '/images/mockup_facecream_royal.png': new URL('../assets/images/mockup_facecream_royal.png', import.meta.url).href,
+    '/images/mockup_facecream_organic.png': new URL('../assets/images/mockup_facecream_organic.png', import.meta.url).href,
+    '/images/mockup_serum_retinol.png': new URL('../assets/images/mockup_serum_retinol.png', import.meta.url).href,
+    '/images/mockup_serum_bakuchiol.png': new URL('../assets/images/mockup_serum_bakuchiol.png', import.meta.url).href,
 };
 
 const getImage = (imgPath) => imageMap[imgPath] || imgPath;
