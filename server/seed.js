@@ -100,7 +100,7 @@ const products = [
         name: 'Creamy Oatmeal & Shea Butter Exfoliating Soap',
         description: 'Gentle exfoliating bar containing finely ground organic oats. Gently buffs away dead skin cells while raw shea butter replenishes vital lipids and skin moisture.',
         price: 620,
-        image: '/images/mockup_organic.png',
+        image: '/images/mockup_soap_oatmeal.png',
         category: 'Soap',
         isFeatured: false,
         stock: 110,
