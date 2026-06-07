@@ -52,12 +52,27 @@ const ProductCard = ({ product, onAddToCart }) => (
 
 const Products = () => {
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState(['All']);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeCategory, setActiveCategory] = useState('All');
     const { addToCart } = useCart();
 
-    const categories = ['All', 'Face Cream', 'Serum', 'Night Cream', 'Moisturizer'];
+    // Fetch categories dynamically on mount
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await productsAPI.getAll();
+                if (res.success && res.data) {
+                    const uniqueCategories = ['All', ...new Set(res.data.map(p => p.category))];
+                    setCategories(uniqueCategories);
+                }
+            } catch (err) {
+                console.error('Failed to extract categories:', err);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     useEffect(() => {
         const fetchProducts = async () => {
