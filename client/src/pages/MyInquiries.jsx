@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { contactAPI } from '../services/api';
 
 const MyInquiries = () => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const [inquiries, setInquiries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [submitLoading, setSubmitLoading] = useState(false);

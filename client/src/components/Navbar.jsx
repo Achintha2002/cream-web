@@ -127,7 +127,7 @@ const Navbar = () => {
                             <Link to="/admin" className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-center text-sm rounded-xl transition" onClick={() => setIsMobileMenuOpen(false)}>
                                 Admin Dashboard
                             </Link>
-                        )} )}
+                        )}
                         <button
                             onClick={() => {
                                 logout();
