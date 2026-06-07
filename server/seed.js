@@ -163,7 +163,7 @@ const products = [
         name: 'Tea Tree Acne Clarifying Toner',
         description: 'Gentle exfoliating toner with tea tree oil and 2% Salicylic Acid (BHA). Unclogs pores, reduces blackheads, and regulates sebum production.',
         price: 1650,
-        image: '/images/mockup_night_organic.png',
+        image: '/images/mockup_toner_teatree.png',
         category: 'Toner',
         isFeatured: false,
         stock: 65,
