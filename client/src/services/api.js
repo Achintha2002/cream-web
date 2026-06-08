@@ -215,6 +215,17 @@ export const authAPI = {
             throw new Error(errData.message || 'Profile update failed');
         }
         return res.json();
+    },
+    getAllUsers: async () => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/auth/users`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to fetch users');
+        return res.json();
     }
 };
 

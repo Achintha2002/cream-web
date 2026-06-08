@@ -5,6 +5,7 @@ const AdminDashboard = () => {
     const [orders, setOrders] = useState([]);
     const [messages, setMessages] = useState([]);
     const [products, setProducts] = useState([]);
+    const [users, setUsers] = useState([]);
 
     // Admin Sub-views state
     // Views: 'overview' | 'orders' | 'inventory' | 'add-product' | 'messages'
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
 
     // Selected order for detailed modal view
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     // Add product form state
     const [newProduct, setNewProduct] = useState({
@@ -33,15 +35,17 @@ const AdminDashboard = () => {
     const fetchDashboardData = async (silent = false) => {
         try {
             if (!silent) setLoading(true);
-            const [ordersRes, messagesRes, productsRes] = await Promise.all([
+            const [ordersRes, messagesRes, productsRes, usersRes] = await Promise.all([
                 ordersAPI.getAll(),
                 contactAPI.getAll(),
-                productsAPI.getAll()
+                productsAPI.getAll(),
+                authAPI.getAllUsers().catch(() => ({ success: false })) // Catch error if not admin
             ]);
 
             if (ordersRes.success) setOrders(ordersRes.data);
             if (messagesRes.success) setMessages(messagesRes.data);
             if (productsRes.success) setProducts(productsRes.data);
+            if (usersRes?.success) setUsers(usersRes.data);
             setError(null);
         } catch (err) {
             console.error('Error fetching admin data:', err);
@@ -269,6 +273,16 @@ const AdminDashboard = () => {
                                 {unreadMessages}
                             </span>
                         )}
+                    </button>
+
+                    <button
+                        onClick={() => setCurrentView('customers')}
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 ${currentView === 'customers' ? 'bg-green-800 text-white shadow-md' : 'text-green-200 hover:bg-green-900/50'}`}
+                    >
+                        <span className="flex items-center gap-3.5">👥 <span>Customer Insights</span></span>
+                        <span className="bg-green-800 text-green-200 text-[10px] font-bold px-2 py-0.5 rounded-full border border-green-700">
+                            {users.length} Users
+                        </span>
                     </button>
                 </nav>
 
@@ -822,8 +836,143 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
+                    {/* --- VIEW 6: CUSTOMER INSIGHTS --- */}
+                    {currentView === 'customers' && (
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full animate-fadeIn">
+                            {/* Left Panel: Users List */}
+                            <div className="lg:col-span-1 bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[calc(100vh-160px)]">
+                                <div className="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                                    <h3 className="font-serif font-bold text-slate-800 text-lg">Registered Users</h3>
+                                    <span className="text-xs font-bold text-slate-500 bg-slate-200 px-2 py-1 rounded-md">{users.length} Total</span>
+                                </div>
+                                <div className="overflow-y-auto flex-grow">
+                                    {users.length === 0 ? (
+                                        <div className="text-center py-8 text-slate-400 text-sm">No users found.</div>
+                                    ) : (
+                                        <div className="divide-y divide-slate-50">
+                                            {users.map(u => (
+                                                <button 
+                                                    key={u._id} 
+                                                    onClick={() => setSelectedUser(u)}
+                                                    className={`w-full text-left p-4 hover:bg-slate-50 transition-colors flex items-center gap-3 ${selectedUser?._id === u._id ? 'bg-green-50/50 border-l-4 border-green-600' : 'border-l-4 border-transparent'}`}
+                                                >
+                                                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold uppercase shrink-0">
+                                                        {u.name.charAt(0)}
+                                                    </div>
+                                                    <div className="overflow-hidden">
+                                                        <div className="font-bold text-slate-800 text-sm truncate flex items-center gap-2">
+                                                            {u.name}
+                                                            {u.role === 'admin' && <span className="text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md uppercase">Admin</span>}
+                                                        </div>
+                                                        <div className="text-xs text-slate-500 truncate">{u.email}</div>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Right Panel: User Details & Purchase History */}
+                            <div className="lg:col-span-2">
+                                {!selectedUser ? (
+                                    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-12 text-center h-full flex flex-col items-center justify-center">
+                                        <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-4xl mb-4">👥</div>
+                                        <h3 className="text-xl font-bold text-slate-800 font-serif mb-2">Select a Customer</h3>
+                                        <p className="text-slate-500 text-sm">Click on a user from the list to view their profile details and complete purchase history.</p>
+                                    </div>
+                                ) : (
+                                    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[calc(100vh-160px)]">
+                                        <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-green-50 to-white">
+                                            <div className="flex items-start gap-5">
+                                                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-800 text-2xl font-bold uppercase shadow-inner shrink-0">
+                                                    {selectedUser.name.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <h2 className="text-2xl font-bold text-slate-800 font-serif mb-1">{selectedUser.name}</h2>
+                                                    <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
+                                                        <span className="flex items-center gap-1.5">📧 {selectedUser.email}</span>
+                                                        <span className="flex items-center gap-1.5">📅 Joined {new Date(selectedUser.createdAt).toLocaleDateString()}</span>
+                                                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${selectedUser.role === 'admin' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>{selectedUser.role}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Purchase History List */}
+                                        <div className="p-6 overflow-y-auto flex-grow bg-slate-50/50">
+                                            <h3 className="font-serif font-bold text-slate-800 text-lg mb-4 flex items-center justify-between">
+                                                <span>Purchase History</span>
+                                                <span className="text-sm font-semibold text-slate-500 bg-white px-3 py-1 rounded-full shadow-sm border border-slate-100">
+                                                    {orders.filter(o => o.customer.email === selectedUser.email).length} Orders
+                                                </span>
+                                            </h3>
+
+                                            <div className="space-y-4">
+                                                {orders.filter(o => o.customer.email === selectedUser.email).length === 0 ? (
+                                                    <div className="text-center py-8 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                                                        <span className="text-4xl mb-2 block">🛒</span>
+                                                        <p className="text-slate-500 text-sm font-medium">No purchase history found for this user.</p>
+                                                    </div>
+                                                ) : (
+                                                    orders.filter(o => o.customer.email === selectedUser.email).map(order => (
+                                                        <div key={order._id} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition">
+                                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-4 border-b border-slate-100">
+                                                                <div>
+                                                                    <div className="flex items-center gap-2 mb-1">
+                                                                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Order ID:</span>
+                                                                        <span className="text-sm font-mono font-semibold text-slate-700">{order._id.substring(0, 8)}</span>
+                                                                    </div>
+                                                                    <div className="text-xs text-slate-500">{new Date(order.createdAt).toLocaleString()}</div>
+                                                                </div>
+                                                                <div className="flex flex-col items-end gap-2">
+                                                                    <span className={`px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider ${
+                                                                        order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                                                        order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                                                                        'bg-amber-100 text-amber-700'
+                                                                    }`}>
+                                                                        {order.status}
+                                                                    </span>
+                                                                    <span className="text-lg font-bold text-green-900">LKR {order.totalAmount.toLocaleString()}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="space-y-2">
+                                                                {order.items.map((item, idx) => (
+                                                                    <div key={idx} className="flex justify-between items-center text-sm">
+                                                                        <div className="flex items-center gap-3">
+                                                                            <div className="w-8 h-8 bg-slate-100 rounded-md flex items-center justify-center text-slate-400 overflow-hidden shrink-0">
+                                                                                {item.image ? <img src={item.image} alt={item.name} className="w-full h-full object-cover" /> : '🧴'}
+                                                                            </div>
+                                                                            <span className="text-slate-700 font-medium">{item.name}</span>
+                                                                        </div>
+                                                                        <div className="text-right">
+                                                                            <span className="text-slate-400 text-xs mr-3">Qty: {item.quantity}</span>
+                                                                            <span className="text-slate-700 font-semibold">LKR {(item.price * item.quantity).toLocaleString()}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                            
+                                                            {order.notes && (
+                                                                <div className="mt-4 pt-3 border-t border-slate-100 bg-amber-50/50 p-3 rounded-xl">
+                                                                    <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block mb-1">Customer Note</span>
+                                                                    <p className="text-sm text-slate-700">{order.notes}</p>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    ))
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </main>
+
 
             {/* --- MODAL: ORDER DETAIL SUMMARY --- */}
             {selectedOrder && (

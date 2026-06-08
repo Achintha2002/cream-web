@@ -1,6 +1,7 @@
 import express from 'express';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -170,6 +171,17 @@ router.put('/me', async (req, res) => {
             }
         });
 
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// @desc    Get all users (admin only)
+// @route   GET /api/auth/users
+router.get('/users', protect, authorize('admin'), async (req, res) => {
+    try {
+        const users = await User.find({}).select('-password').sort({ createdAt: -1 });
+        res.json({ success: true, count: users.length, data: users });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
