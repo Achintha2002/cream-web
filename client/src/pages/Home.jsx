@@ -82,16 +82,22 @@ const Home = () => {
 
                     {/* Right: Product Image */}
                     <div className="relative flex items-center justify-center">
-                        <div className="relative z-10">
+                        {/* Glowing ring behind image */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-green-100/60 blur-3xl animate-pulse" />
+                        </div>
+
+                        <div className="relative z-10 animate-float animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                             <img
                                 src={imgMockupOrganic}
                                 alt="Raani Organic Cream"
-                                className="w-full max-w-sm md:max-w-md mx-auto drop-shadow-2xl rounded-[3rem] border-4 border-white/80"
+                                className="w-full max-w-sm md:max-w-md mx-auto drop-shadow-2xl rounded-[3rem] border-4 border-white/80 hover:scale-105 transition-transform duration-700"
                             />
                         </div>
+
                         {/* Floating accent circles */}
-                        <div className="absolute top-6 right-6 w-28 h-28 bg-green-100 rounded-full opacity-60 blur-lg" />
-                        <div className="absolute bottom-10 left-4 w-20 h-20 bg-amber-100 rounded-full opacity-50 blur-md" />
+                        <div className="absolute top-6 right-6 w-28 h-28 bg-green-100 rounded-full opacity-60 blur-lg animate-pulse" style={{ animationDelay: '1s' }} />
+                        <div className="absolute bottom-10 left-4 w-20 h-20 bg-amber-100 rounded-full opacity-50 blur-md animate-pulse" style={{ animationDelay: '2s' }} />
                     </div>
                 </div>
             </section>
