@@ -27,6 +27,11 @@ const imageMap = {
     '/images/mockup_facecream_organic.png': new URL('../assets/images/mockup_facecream_organic.png', import.meta.url).href,
     '/images/mockup_serum_retinol.png': new URL('../assets/images/mockup_serum_retinol.png', import.meta.url).href,
     '/images/mockup_serum_bakuchiol.png': new URL('../assets/images/mockup_serum_bakuchiol.png', import.meta.url).href,
+    '/images/gift_1.png': new URL('../assets/images/gift_1.png', import.meta.url).href,
+    '/images/gift_2.png': new URL('../assets/images/gift_2.png', import.meta.url).href,
+    '/images/gift_3.png': new URL('../assets/images/gift_3.png', import.meta.url).href,
+    '/images/gift_4.png': new URL('../assets/images/gift_4.png', import.meta.url).href,
+    '/images/gift_5.png': new URL('../assets/images/gift_5.png', import.meta.url).href,
 };
 
 const getImage = (imgPath) => imageMap[imgPath] || imgPath;
