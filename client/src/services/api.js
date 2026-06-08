@@ -75,6 +75,17 @@ export const ordersAPI = {
         if (!res.ok) throw new Error('Failed to fetch orders');
         return res.json();
     },
+    getMyOrders: async () => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/orders/my`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            },
+        });
+        if (!res.ok) throw new Error('Failed to fetch your orders');
+        return res.json();
+    },
     updateStatus: async (id, statusData) => {
         const token = localStorage.getItem('raani_token');
         const res = await fetch(`${API_BASE_URL}/orders/${id}/status`, {

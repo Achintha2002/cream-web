@@ -108,6 +108,27 @@ router.post('/', async (req, res) => {
     }
 });
 
+// GET user's orders
+router.get('/my', protect, async (req, res) => {
+    try {
+        const userEmail = req.user?.email || req.body.email; // Usually from JWT protect middleware
+        if (!userEmail) {
+             // Let's decode token here since protect middleware might not attach full user if not set properly in this project
+             const token = req.headers.authorization.split(' ')[1];
+             const jwt = await import('jsonwebtoken');
+             const decoded = jwt.verify(token, process.env.JWT_SECRET || 'raani_secret_jwt_key_123456');
+             const User = (await import('../models/User.js')).default;
+             const user = await User.findById(decoded.id);
+             if(!user) return res.status(401).json({ success: false, message: 'User not found' });
+             
+             const orders = await Order.find({ 'customer.email': user.email }).sort({ createdAt: -1 });
+             return res.json({ success: true, data: orders });
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 // GET all orders (admin)
 router.get('/', protect, authorize('admin'), async (req, res) => {
     try {

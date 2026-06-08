@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
-import { authAPI } from '../services/api';
+import { authAPI, ordersAPI } from '../services/api';
 
 const Profile = () => {
     const { user, logout, updateUser } = useAuth();
@@ -14,7 +14,27 @@ const Profile = () => {
         confirmPassword: ''
     });
     const [loading, setLoading] = useState(false);
+    const [ordersLoading, setOrdersLoading] = useState(true);
+    const [orders, setOrders] = useState([]);
     const [message, setMessage] = useState({ type: '', text: '' });
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            if (user) {
+                try {
+                    const res = await ordersAPI.getMyOrders();
+                    if (res.success) {
+                        setOrders(res.data);
+                    }
+                } catch (err) {
+                    console.error("Failed to fetch orders:", err);
+                } finally {
+                    setOrdersLoading(false);
+                }
+            }
+        };
+        fetchOrders();
+    }, [user]);
 
     if (!user) {
         return (
@@ -208,6 +228,55 @@ const Profile = () => {
                                         </button>
                                     </div>
                                 </form>
+                            )}
+                        </div>
+
+                        {/* Purchase History */}
+                        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+                            <h3 className="font-serif font-bold text-slate-800 text-lg mb-5 pb-3 border-b border-slate-100">🛒 Purchase History</h3>
+                            
+                            {ordersLoading ? (
+                                <div className="py-8 flex justify-center">
+                                    <div className="w-6 h-6 border-2 border-green-800 border-t-transparent rounded-full animate-spin"></div>
+                                </div>
+                            ) : orders.length === 0 ? (
+                                <p className="text-sm text-slate-500 py-4 text-center">You haven't placed any orders yet.</p>
+                            ) : (
+                                <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                                    {orders.map(order => (
+                                        <div key={order._id} className="border border-slate-100 rounded-2xl p-4 bg-slate-50 hover:bg-white hover:shadow-sm transition">
+                                            <div className="flex justify-between items-start mb-3">
+                                                <div>
+                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Order #{order._id.substring(0, 8)}</p>
+                                                    <p className="text-xs text-slate-600 mt-0.5">{new Date(order.createdAt).toLocaleDateString()}</p>
+                                                </div>
+                                                <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase ${
+                                                    order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                                    order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                                                    'bg-amber-100 text-amber-700'
+                                                }`}>
+                                                    {order.status}
+                                                </span>
+                                            </div>
+                                            
+                                            <div className="space-y-2 border-t border-slate-200 pt-3 mb-3">
+                                                {order.items.map((item, idx) => (
+                                                    <div key={idx} className="flex justify-between text-sm">
+                                                        <span className="text-slate-700 font-medium">
+                                                            {item.name} <span className="text-slate-400 text-xs">x{item.quantity}</span>
+                                                        </span>
+                                                        <span className="text-slate-600 font-semibold">LKR {(item.price * item.quantity).toLocaleString()}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <div className="flex justify-between items-center border-t border-slate-200 pt-3">
+                                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total</span>
+                                                <span className="font-bold text-green-900">LKR {order.totalAmount.toLocaleString()}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             )}
                         </div>
                     </div>
