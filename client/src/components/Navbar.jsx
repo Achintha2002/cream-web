@@ -10,7 +10,9 @@ const Navbar = () => {
     const [searchInput, setSearchInput] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
     const [isHidden, setIsHidden] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const lastScrollY = useRef(0);
+    const userMenuRef = useRef(null);
 
     const { totalItems, setIsCartOpen } = useCart();
     const { user, logout, isAuthenticated } = useAuth();
@@ -32,6 +34,21 @@ const Navbar = () => {
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    /* ── Close user menu when clicking outside ── */
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+                setIsUserMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
     }, []);
 
     const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
@@ -118,14 +135,18 @@ const Navbar = () => {
                     <div className="flex items-center justify-end gap-4 w-1/4">
                         {/* Profile */}
                         {isAuthenticated ? (
-                            <div className="relative group">
-                                <button className="text-gray-500 hover:text-green-900 flex items-center gap-1.5 transition" aria-label="Account">
+                            <div className="relative" ref={userMenuRef}>
+                                <button
+                                    onClick={() => setIsUserMenuOpen(prev => !prev)}
+                                    className="text-gray-500 hover:text-green-900 flex items-center gap-1.5 transition"
+                                    aria-label="Account"
+                                >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                     </svg>
                                     <span className="text-[11px] tracking-widest hidden lg:inline max-w-[70px] truncate uppercase">{user.name.split(' ')[0]}</span>
                                 </button>
-                                <div className="absolute right-0 top-full mt-3 w-48 bg-white border border-stone-200 rounded-xl shadow-xl py-2 hidden group-hover:block z-50 text-sm">
+                                <div className={`absolute right-0 top-full mt-3 w-48 bg-white border border-stone-200 rounded-xl shadow-xl py-2 z-50 text-sm transition-all duration-200 ${isUserMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'}`}>
                                     <div className="px-4 py-2 text-xs text-gray-400 uppercase tracking-widest border-b border-stone-100">{user.name}</div>
                                     <Link to="/my-inquiries" className="block px-4 py-2.5 text-gray-700 hover:bg-stone-50 hover:text-green-900 transition">My Inquiries</Link>
                                     {user.role === 'admin' && (

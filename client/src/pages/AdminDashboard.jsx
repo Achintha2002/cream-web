@@ -5,11 +5,11 @@ const AdminDashboard = () => {
     const [orders, setOrders] = useState([]);
     const [messages, setMessages] = useState([]);
     const [products, setProducts] = useState([]);
-    
+
     // Admin Sub-views state
     // Views: 'overview' | 'orders' | 'inventory' | 'add-product' | 'messages'
     const [currentView, setCurrentView] = useState('overview');
-    
+
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(null); // ID of active operation
     const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
 
     // Selected order for detailed modal view
     const [selectedOrder, setSelectedOrder] = useState(null);
-    
+
     // Add product form state
     const [newProduct, setNewProduct] = useState({
         name: '',
@@ -207,10 +207,10 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="min-h-screen pt-20 bg-slate-50 flex flex-col md:flex-row">
-            
+        <div className="min-h-screen pt-28 bg-[#F7F5F2] flex flex-col md:flex-row">
+
             {/* --- ADMIN LEFT SIDEBAR (NAV BAR) --- */}
-            <aside className="w-full md:w-64 bg-green-950 text-white flex flex-col border-r border-green-900 md:min-h-[calc(100vh-80px)]">
+            <aside className="w-full md:w-64 bg-[#0F1F16] text-white flex flex-col border-r border-green-900 md:min-h-[calc(100vh-112px)]">
                 {/* Branding/User Profile inside sidebar */}
                 <div className="p-6 border-b border-green-900/60 bg-green-950/40">
                     <div className="flex items-center gap-3">
@@ -274,14 +274,14 @@ const AdminDashboard = () => {
 
                 {/* Footer link in Sidebar */}
                 <div className="p-4 border-t border-green-900/60 bg-green-950/20 text-center text-xs text-green-500 font-semibold">
-                    🌿 RAANI Skincare System v1.1
+                    RAANI Skincare System v1.1
                 </div>
             </aside>
 
             {/* --- ADMIN CONTENT PANEL --- */}
             <main className="flex-1 p-6 md:p-10">
                 <div className="max-w-6xl mx-auto">
-                    
+
                     {/* Header */}
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-slate-200 pb-5">
                         <div>
@@ -300,7 +300,7 @@ const AdminDashboard = () => {
                                 {currentView === 'messages' && 'Read and respond to contact submissions from customers'}
                             </p>
                         </div>
-                        <button 
+                        <button
                             onClick={fetchDashboardData}
                             className="px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl shadow-sm text-xs transition"
                         >
@@ -367,8 +367,8 @@ const AdminDashboard = () => {
                                                             <span className="text-slate-500 font-bold">{item.quantity} sold ({percentage.toFixed(0)}%)</span>
                                                         </div>
                                                         <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                                                            <div 
-                                                                className="bg-green-600 h-full rounded-full transition-all duration-500" 
+                                                            <div
+                                                                className="bg-green-600 h-full rounded-full transition-all duration-500"
                                                                 style={{ width: `${percentage}%` }}
                                                             ></div>
                                                         </div>
@@ -390,8 +390,8 @@ const AdminDashboard = () => {
                                                 <span className="text-emerald-600 font-bold">{statusCounts.delivered}</span>
                                             </div>
                                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="bg-emerald-500 h-full rounded-full" 
+                                                <div
+                                                    className="bg-emerald-500 h-full rounded-full"
                                                     style={{ width: `${totalOrders > 0 ? (statusCounts.delivered / totalOrders) * 100 : 0}%` }}
                                                 ></div>
                                             </div>
@@ -404,8 +404,8 @@ const AdminDashboard = () => {
                                                 <span className="text-blue-600 font-bold">{statusCounts.processing}</span>
                                             </div>
                                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="bg-blue-50 h-full rounded-full" 
+                                                <div
+                                                    className="bg-blue-50 h-full rounded-full"
                                                     style={{ width: `${totalOrders > 0 ? (statusCounts.processing / totalOrders) * 100 : 0}%` }}
                                                 ></div>
                                             </div>
@@ -418,8 +418,8 @@ const AdminDashboard = () => {
                                                 <span className="text-amber-600 font-bold">{statusCounts.shipped}</span>
                                             </div>
                                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="bg-amber-500 h-full rounded-full" 
+                                                <div
+                                                    className="bg-amber-500 h-full rounded-full"
                                                     style={{ width: `${totalOrders > 0 ? (statusCounts.shipped / totalOrders) * 100 : 0}%` }}
                                                 ></div>
                                             </div>
@@ -432,8 +432,8 @@ const AdminDashboard = () => {
                                                 <span className="text-red-600 font-bold">{statusCounts.cancelled}</span>
                                             </div>
                                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="bg-red-500 h-full rounded-full" 
+                                                <div
+                                                    className="bg-red-500 h-full rounded-full"
                                                     style={{ width: `${totalOrders > 0 ? (statusCounts.cancelled / totalOrders) * 100 : 0}%` }}
                                                 ></div>
                                             </div>
@@ -466,7 +466,7 @@ const AdminDashboard = () => {
                                                 {orders.map(order => (
                                                     <tr key={order._id} className="hover:bg-slate-50/50 transition-colors">
                                                         <td className="py-4 px-4">
-                                                            <button 
+                                                            <button
                                                                 onClick={() => setSelectedOrder(order)}
                                                                 className="font-mono text-xs font-bold text-green-700 hover:underline bg-green-50 px-2.5 py-1.5 rounded-lg border border-green-100"
                                                             >
@@ -481,12 +481,11 @@ const AdminDashboard = () => {
                                                             LKR {order.totalAmount.toLocaleString()}
                                                         </td>
                                                         <td className="py-4 px-4">
-                                                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
-                                                                order.status === 'processing' ? 'bg-blue-50 text-blue-600' :
-                                                                order.status === 'shipped' ? 'bg-amber-50 text-amber-600' :
-                                                                order.status === 'delivered' ? 'bg-emerald-50 text-emerald-600' :
-                                                                'bg-red-50 text-red-600'
-                                                            }`}>
+                                                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${order.status === 'processing' ? 'bg-blue-50 text-blue-600' :
+                                                                    order.status === 'shipped' ? 'bg-amber-50 text-amber-600' :
+                                                                        order.status === 'delivered' ? 'bg-emerald-50 text-emerald-600' :
+                                                                            'bg-red-50 text-red-600'
+                                                                }`}>
                                                                 {order.status.toUpperCase()}
                                                             </span>
                                                         </td>
@@ -559,11 +558,10 @@ const AdminDashboard = () => {
                                                     <td className="py-4 px-4 text-slate-500 font-medium">{product.category}</td>
                                                     <td className="py-4 px-4 font-bold text-slate-800">LKR {product.price.toLocaleString()}</td>
                                                     <td className="py-4 px-4">
-                                                        <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold ${
-                                                            product.stock <= 5 ? 'bg-red-50 text-red-600' :
-                                                            product.stock <= 20 ? 'bg-amber-50 text-amber-600' :
-                                                            'bg-green-50 text-green-700'
-                                                        }`}>
+                                                        <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold ${product.stock <= 5 ? 'bg-red-50 text-red-600' :
+                                                                product.stock <= 20 ? 'bg-amber-50 text-amber-600' :
+                                                                    'bg-green-50 text-green-700'
+                                                            }`}>
                                                             {product.stock} units
                                                         </span>
                                                     </td>
@@ -598,7 +596,7 @@ const AdminDashboard = () => {
                     {/* --- VIEW 4: ADD NEW PRODUCT FORM --- */}
                     {currentView === 'add-product' && (
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
-                            
+
                             {/* Product Form Panel */}
                             <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 lg:col-span-2">
                                 <h3 className="font-serif font-bold text-slate-800 text-lg mb-5 pb-3 border-b">🧴 Product Specifications</h3>
@@ -700,7 +698,7 @@ const AdminDashboard = () => {
                                     >
                                         {actionLoading === 'add_product' ? (
                                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        ) : '🚀 Publish Product to Catalog'}
+                                        ) : 'Publish Product to Catalog'}
                                     </button>
                                 </form>
                             </div>
@@ -709,13 +707,13 @@ const AdminDashboard = () => {
                             <div className="space-y-6">
                                 <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
                                     <h3 className="font-serif font-bold text-slate-800 text-base mb-4">✨ Live Card Preview</h3>
-                                    
+
                                     {/* Preview Card */}
                                     <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition">
                                         <div className="h-48 bg-green-50/50 flex items-center justify-center relative overflow-hidden">
-                                            <img 
-                                                src={newProduct.image || '/images/mockup_royal.png'} 
-                                                alt="Preview" 
+                                            <img
+                                                src={newProduct.image || '/images/mockup_royal.png'}
+                                                alt="Preview"
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => { e.target.src = '/images/mockup_royal.png'; }}
                                             />
@@ -837,7 +835,7 @@ const AdminDashboard = () => {
                                 <h3 className="text-xl font-bold font-serif">Order Summary</h3>
                                 <p className="text-xs text-green-200 mt-1">ID: #{selectedOrder._id}</p>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => setSelectedOrder(null)}
                                 className="w-9 h-9 rounded-full bg-green-800 text-white hover:bg-green-700 flex items-center justify-center transition text-lg"
                             >

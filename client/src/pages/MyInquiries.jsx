@@ -96,14 +96,14 @@ const MyInquiries = () => {
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-800 font-serif">✉️ Help Center & Inquiries</h1>
+                    <h1 className="text-3xl font-bold text-slate-800 font-serif">Help Center & Inquiries</h1>
                     <p className="text-slate-500 mt-1">Hello, {user.name}. Feel free to ask any questions or send feedback to our expert team.</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
                     {/* Inquiry submission form */}
                     <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm lg:col-span-2">
-                        <h3 className="font-serif font-bold text-slate-800 text-lg mb-5 pb-3 border-b">📩 Submit an Inquiry</h3>
+                        <h3 className="font-serif font-bold text-slate-800 text-lg mb-5 pb-3 border-b">Submit an Inquiry</h3>
 
                         {successMessage && (
                             <div className="mb-5 p-4 bg-green-50 border border-green-200 rounded-2xl text-green-700 text-sm font-medium">
