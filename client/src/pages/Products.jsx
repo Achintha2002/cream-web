@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { productsAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
 
@@ -143,6 +143,7 @@ const ProductCard = ({ product, onAddToCart }) => {
 };
 
 const Products = () => {
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState(['All']);
     const [loading, setLoading] = useState(true);
@@ -262,7 +263,21 @@ const Products = () => {
                 <div className="relative z-10">
                     <h2 className="text-4xl font-serif font-bold mb-6">Go Green, Glow Clean</h2>
                     <p className="text-xl mb-10 max-w-2xl mx-auto text-green-100">Starter kit with all essentials for complete natural care.</p>
-                    <button className="bg-white text-green-900 px-10 py-4 rounded-full font-bold text-lg hover:bg-green-50 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                    <button 
+                        onClick={() => {
+                            addToCart({
+                                _id: 'promo-green-kit',
+                                name: 'The Green Starter Kit',
+                                price: 6500,
+                                stock: 999,
+                                image: '/images/mockup_organic.png',
+                                category: 'Bundles',
+                                description: 'Starter kit with all essentials for complete natural care.'
+                            });
+                            navigate('/checkout');
+                        }}
+                        className="bg-white text-green-900 px-10 py-4 rounded-full font-bold text-lg hover:bg-green-50 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+                    >
                         Get the Green Kit - LKR 6,500
                     </button>
                 </div>
