@@ -1,15 +1,27 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import logoImg from '../assets/images/logo.png';
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
     const { totalItems, setIsCartOpen } = useCart();
     const { user, logout, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchInput.trim()) {
+            navigate(`/products?search=${encodeURIComponent(searchInput.trim())}`);
+            setIsSearchOpen(false);
+            setSearchInput('');
+        }
     };
 
     const linkClasses = ({ isActive }) =>
@@ -21,10 +33,37 @@ const Navbar = () => {
 
     return (
         <nav className="fixed w-full z-50 bg-white border-b border-gray-100 shadow-sm transition-all duration-300" id="navbar">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                {/* Search Bar Overlay */}
+                {isSearchOpen && (
+                    <div className="absolute inset-0 bg-white z-50 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+                        <form onSubmit={handleSearchSubmit} className="w-full max-w-3xl mx-auto flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-400">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.637 10.637Z" />
+                            </svg>
+                            <input
+                                type="text"
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                placeholder="Search our pure organic collection..."
+                                className="w-full text-base md:text-lg text-gray-800 placeholder-gray-400 focus:outline-none border-b border-transparent focus:border-green-800 py-2"
+                                autoFocus
+                            />
+                            <button type="submit" className="bg-green-800 text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-green-700 transition">
+                                Search
+                            </button>
+                            <button type="button" onClick={() => setIsSearchOpen(false)} className="text-gray-500 hover:text-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                )}
+
                 {/* Main Row */}
                 <div className="flex justify-between items-center h-20 md:h-24 relative">
-                    {/* Left Side: Mobile Menu Button (Mobile) / Search Icon (Desktop) */}
+                    {/* Left Side: Mobile Menu Button (Mobile) / Search Icon (Desktop/Mobile) */}
                     <div className="flex items-center gap-4 w-1/4">
                         <button className="md:hidden text-gray-600 hover:text-green-800 focus:outline-none" onClick={toggleMobileMenu}>
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +74,7 @@ const Navbar = () => {
                                 )}
                             </svg>
                         </button>
-                        <button className="hidden md:block text-gray-600 hover:text-green-800 transition duration-200">
+                        <button onClick={() => setIsSearchOpen(true)} className="text-gray-600 hover:text-green-800 transition duration-200">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.637 10.637Z" />
                             </svg>

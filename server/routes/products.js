@@ -7,11 +7,17 @@ const router = express.Router();
 // GET all products (with optional category filter)
 router.get('/', async (req, res) => {
     try {
-        const { category, featured } = req.query;
+        const { category, featured, search } = req.query;
         let filter = {};
 
         if (category) filter.category = category;
         if (featured === 'true') filter.isFeatured = true;
+        if (search) {
+            filter.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
+            ];
+        }
 
         const products = await Product.find(filter).sort({ createdAt: -1 });
         res.json({ success: true, count: products.length, data: products });

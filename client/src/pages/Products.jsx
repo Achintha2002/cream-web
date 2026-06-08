@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { productsAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
 
@@ -74,6 +75,8 @@ const Products = () => {
     const [error, setError] = useState(null);
     const [activeCategory, setActiveCategory] = useState('All');
     const { addToCart } = useCart();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
 
     // Fetch categories dynamically on mount
     useEffect(() => {
@@ -95,7 +98,10 @@ const Products = () => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                const params = activeCategory !== 'All' ? { category: activeCategory } : {};
+                const params = {};
+                if (activeCategory !== 'All') params.category = activeCategory;
+                if (searchQuery) params.search = searchQuery;
+
                 const data = await productsAPI.getAll(params);
                 setProducts(data.data || []);
             } catch (err) {
@@ -105,7 +111,7 @@ const Products = () => {
             }
         };
         fetchProducts();
-    }, [activeCategory]);
+    }, [activeCategory, searchQuery]);
 
     return (
         <div className="pt-24">
@@ -115,8 +121,20 @@ const Products = () => {
                     <div className="w-96 h-96 bg-green-200 rounded-full blur-3xl absolute -top-20 -left-20 opacity-30"></div>
                     <div className="w-96 h-96 bg-yellow-100 rounded-full blur-3xl absolute bottom-0 right-0 opacity-30"></div>
                 </div>
-                <h1 className="text-5xl font-serif font-bold text-green-900 mb-4 relative z-10">The Organic Collection</h1>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto relative z-10">Safe, clean, and effective skincare straight from nature.</p>
+                <h1 className="text-5xl font-serif font-bold text-green-900 mb-4 relative z-10">
+                    {searchQuery ? `Search: "${searchQuery}"` : 'The Organic Collection'}
+                </h1>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto relative z-10">
+                    {searchQuery ? `${products.length} products found matching your search.` : 'Safe, clean, and effective skincare straight from nature.'}
+                </p>
+                {searchQuery && (
+                    <button
+                        onClick={() => setSearchParams({})}
+                        className="mt-4 bg-green-800 text-white text-xs font-bold px-6 py-2 rounded-full hover:bg-green-700 transition relative z-20"
+                    >
+                        Clear Search
+                    </button>
+                )}
             </header>
 
             {/* Category Filter */}
