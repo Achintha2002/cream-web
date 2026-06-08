@@ -188,6 +188,22 @@ export const authAPI = {
         });
         if (!res.ok) throw new Error('Failed to fetch user profiles');
         return res.json();
+    },
+    updateMe: async (userData) => {
+        const token = localStorage.getItem('raani_token');
+        const res = await fetch(`${API_BASE_URL}/auth/me`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify(userData),
+        });
+        if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.message || 'Profile update failed');
+        }
+        return res.json();
     }
 };
 

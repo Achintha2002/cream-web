@@ -129,4 +129,50 @@ router.get('/me', async (req, res) => {
     }
 });
 
+// @desc    Update user profile
+// @route   PUT /api/auth/me
+router.put('/me', async (req, res) => {
+    try {
+        let token;
+
+        if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+            token = req.headers.authorization.split(' ')[1];
+        }
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Not authorized' });
+        }
+
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+
+        // If password is provided, update it
+        if (req.body.password) {
+            user.password = req.body.password;
+        }
+
+        const updatedUser = await user.save();
+
+        res.json({
+            success: true,
+            user: {
+                id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                role: updatedUser.role
+            }
+        });
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 export default router;
