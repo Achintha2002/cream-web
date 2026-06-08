@@ -31,6 +31,11 @@ const AdminDashboard = () => {
         stock: 50
     });
 
+    // Add new admin state
+    const [showAddAdminModal, setShowAddAdminModal] = useState(false);
+    const [newAdmin, setNewAdmin] = useState({ name: '', email: '', password: '' });
+    const [adminSubmitLoading, setAdminSubmitLoading] = useState(false);
+
     // Fetch dashboard data
     const fetchDashboardData = async (silent = false) => {
         try {
@@ -166,6 +171,32 @@ const AdminDashboard = () => {
         }
     };
 
+    // Handle Create Admin
+    const handleCreateAdmin = async (e) => {
+        e.preventDefault();
+        try {
+            setAdminSubmitLoading(true);
+            const res = await fetch('http://localhost:5001/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...newAdmin, role: 'admin' })
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('New Admin created successfully!');
+                setShowAddAdminModal(false);
+                setNewAdmin({ name: '', email: '', password: '' });
+                fetchDashboardData(true); // Refresh users list
+            } else {
+                alert(data.message || 'Failed to create admin');
+            }
+        } catch (err) {
+            alert('Error creating admin: ' + err.message);
+        } finally {
+            setAdminSubmitLoading(false);
+        }
+    };
+
     // --- CALCULATIONS & ANALYTICS ---
     const totalOrders = orders.length;
     const totalRevenue = orders
@@ -198,6 +229,9 @@ const AdminDashboard = () => {
 
     const bestSellersList = Object.values(bestSellers).sort((a, b) => b.quantity - a.quantity);
     const totalItemsSold = bestSellersList.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Low stock alert (threshold: 5)
+    const lowStockProducts = products.filter(p => p.stock <= 5);
 
     if (loading) {
         return (
@@ -295,6 +329,29 @@ const AdminDashboard = () => {
             {/* --- ADMIN CONTENT PANEL --- */}
             <main className="flex-1 p-6 md:p-10">
                 <div className="max-w-6xl mx-auto">
+
+                    {/* Low Stock Alert */}
+                    {lowStockProducts.length > 0 && (
+                        <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm animate-fadeIn">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <span className="text-xl">⚠️</span>
+                                    <div>
+                                        <h3 className="font-bold text-red-800 text-sm">Low Stock Warning!</h3>
+                                        <p className="text-red-700 text-xs mt-0.5">
+                                            {lowStockProducts.length} product(s) are running out of stock (5 or less remaining).
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setCurrentView('inventory')}
+                                    className="px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-800 text-xs font-bold rounded-lg transition"
+                                >
+                                    View Inventory
+                                </button>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Header */}
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-slate-200 pb-5">
@@ -496,9 +553,9 @@ const AdminDashboard = () => {
                                                         </td>
                                                         <td className="py-4 px-4">
                                                             <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${order.status === 'processing' ? 'bg-blue-50 text-blue-600' :
-                                                                    order.status === 'shipped' ? 'bg-amber-50 text-amber-600' :
-                                                                        order.status === 'delivered' ? 'bg-emerald-50 text-emerald-600' :
-                                                                            'bg-red-50 text-red-600'
+                                                                order.status === 'shipped' ? 'bg-amber-50 text-amber-600' :
+                                                                    order.status === 'delivered' ? 'bg-emerald-50 text-emerald-600' :
+                                                                        'bg-red-50 text-red-600'
                                                                 }`}>
                                                                 {order.status.toUpperCase()}
                                                             </span>
@@ -573,8 +630,8 @@ const AdminDashboard = () => {
                                                     <td className="py-4 px-4 font-bold text-slate-800">LKR {product.price.toLocaleString()}</td>
                                                     <td className="py-4 px-4">
                                                         <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold ${product.stock <= 5 ? 'bg-red-50 text-red-600' :
-                                                                product.stock <= 20 ? 'bg-amber-50 text-amber-600' :
-                                                                    'bg-green-50 text-green-700'
+                                                            product.stock <= 20 ? 'bg-amber-50 text-amber-600' :
+                                                                'bg-green-50 text-green-700'
                                                             }`}>
                                                             {product.stock} units
                                                         </span>
@@ -842,8 +899,16 @@ const AdminDashboard = () => {
                             {/* Left Panel: Users List */}
                             <div className="lg:col-span-1 bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[calc(100vh-160px)]">
                                 <div className="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                                    <h3 className="font-serif font-bold text-slate-800 text-lg">Registered Users</h3>
-                                    <span className="text-xs font-bold text-slate-500 bg-slate-200 px-2 py-1 rounded-md">{users.length} Total</span>
+                                    <div>
+                                        <h3 className="font-serif font-bold text-slate-800 text-lg">Registered Users</h3>
+                                        <span className="text-xs font-bold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-md mt-1 inline-block">{users.length} Total</span>
+                                    </div>
+                                    <button
+                                        onClick={() => setShowAddAdminModal(true)}
+                                        className="bg-green-800 hover:bg-green-900 text-white text-[10px] font-bold px-3 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5"
+                                    >
+                                        ➕ Add Admin
+                                    </button>
                                 </div>
                                 <div className="overflow-y-auto flex-grow">
                                     {users.length === 0 ? (
@@ -851,8 +916,8 @@ const AdminDashboard = () => {
                                     ) : (
                                         <div className="divide-y divide-slate-50">
                                             {users.map(u => (
-                                                <button 
-                                                    key={u._id} 
+                                                <button
+                                                    key={u._id}
                                                     onClick={() => setSelectedUser(u)}
                                                     className={`w-full text-left p-4 hover:bg-slate-50 transition-colors flex items-center gap-3 ${selectedUser?._id === u._id ? 'bg-green-50/50 border-l-4 border-green-600' : 'border-l-4 border-transparent'}`}
                                                 >
@@ -926,11 +991,10 @@ const AdminDashboard = () => {
                                                                     <div className="text-xs text-slate-500">{new Date(order.createdAt).toLocaleString()}</div>
                                                                 </div>
                                                                 <div className="flex flex-col items-end gap-2">
-                                                                    <span className={`px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider ${
-                                                                        order.status === 'delivered' ? 'bg-green-100 text-green-700' :
-                                                                        order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                                                                        'bg-amber-100 text-amber-700'
-                                                                    }`}>
+                                                                    <span className={`px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider ${order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                                                            order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                                                                                'bg-amber-100 text-amber-700'
+                                                                        }`}>
                                                                         {order.status}
                                                                     </span>
                                                                     <span className="text-lg font-bold text-green-900">LKR {order.totalAmount.toLocaleString()}</span>
@@ -953,7 +1017,7 @@ const AdminDashboard = () => {
                                                                     </div>
                                                                 ))}
                                                             </div>
-                                                            
+
                                                             {order.notes && (
                                                                 <div className="mt-4 pt-3 border-t border-slate-100 bg-amber-50/50 p-3 rounded-xl">
                                                                     <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block mb-1">Customer Note</span>
@@ -1071,6 +1135,71 @@ const AdminDashboard = () => {
                             >
                                 Close
                             </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* --- MODAL: ADD NEW ADMIN --- */}
+            {showAddAdminModal && (
+                <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
+                    <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
+                        <div className="p-5 border-b border-slate-100 bg-green-900 flex justify-between items-center text-white">
+                            <h3 className="font-serif font-bold text-lg flex items-center gap-2"> Add New Admin</h3>
+                            <button onClick={() => setShowAddAdminModal(false)} className="text-green-200 hover:text-white transition text-xl leading-none">&times;</button>
+                        </div>
+                        <div className="p-6">
+                            <form onSubmit={handleCreateAdmin} className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Full Name</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={newAdmin.name}
+                                        onChange={(e) => setNewAdmin({ ...newAdmin, name: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-sm"
+                                        placeholder="Admin Name"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Email Address</label>
+                                    <input
+                                        type="email"
+                                        required
+                                        value={newAdmin.email}
+                                        onChange={(e) => setNewAdmin({ ...newAdmin, email: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-sm"
+                                        placeholder="admin@raani.lk"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Password</label>
+                                    <input
+                                        type="password"
+                                        required
+                                        minLength="6"
+                                        value={newAdmin.password}
+                                        onChange={(e) => setNewAdmin({ ...newAdmin, password: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-sm"
+                                        placeholder="Min 6 characters"
+                                    />
+                                </div>
+                                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-3 mt-4">
+                                    <span className="text-amber-500 text-lg">⚠️</span>
+                                    <p className="text-xs text-amber-800 leading-relaxed">
+                                        This user will have full access to the Admin Panel, including order management, inventory control, and customer insights.
+                                    </p>
+                                </div>
+                                <div className="pt-2">
+                                    <button
+                                        type="submit"
+                                        disabled={adminSubmitLoading}
+                                        className="w-full bg-green-800 hover:bg-green-900 text-white font-bold py-3 px-4 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                                    >
+                                        {adminSubmitLoading ? 'Creating...' : 'Create Admin Account'}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
