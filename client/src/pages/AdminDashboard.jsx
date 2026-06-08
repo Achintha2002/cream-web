@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ordersAPI, contactAPI, productsAPI } from '../services/api';
+import { ordersAPI, contactAPI, productsAPI, authAPI } from '../services/api';
 
 const AdminDashboard = () => {
     const [orders, setOrders] = useState([]);
