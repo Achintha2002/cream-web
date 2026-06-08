@@ -84,7 +84,7 @@ const Footer = () => {
                         <span className="hidden md:inline text-stone-700 text-[10px]">✦</span>
                         <span className="flex items-center gap-2 group cursor-pointer">
                             <span className="text-stone-500 group-hover:text-stone-300 transition-colors text-[10px] uppercase tracking-widest font-bold">Designed & Developed by</span>
-                            <span className="text-lg text-stone-300 group-hover:text-green-400 transition-colors relative tracking-widest drop-shadow-sm">
+                            <span className="text-sm text-stone-300 group-hover:text-green-400 transition-colors relative tracking-widest drop-shadow-sm mt-[1px]">
                                 ᴀᴄʜɪɴᴛʜᴀ
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-green-400 group-hover:w-full transition-all duration-500"></span>
                             </span>
