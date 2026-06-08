@@ -89,7 +89,7 @@ const ProductCard = ({ product, onAddToCart }) => {
 
                 {/* --- BACK OF CARD --- */}
                 <div 
-                    className="absolute w-full h-full backface-hidden bg-[#0A1610] rounded-3xl overflow-hidden shadow-2xl border border-green-900 rotate-y-180 p-6 flex flex-col text-white cursor-pointer"
+                    className="absolute w-full h-full backface-hidden bg-green-900 rounded-3xl overflow-hidden shadow-2xl border border-green-800 rotate-y-180 p-6 flex flex-col text-white cursor-pointer"
                     onClick={() => setIsFlipped(false)}
                 >
                     <div className="flex justify-between items-start mb-4">
