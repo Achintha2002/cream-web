@@ -31,42 +31,111 @@ const imageMap = {
 
 const getImage = (imgPath) => imageMap[imgPath] || imgPath;
 
-const ProductCard = ({ product, onAddToCart }) => (
-    <div className="group relative bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 transform hover:-translate-y-2">
-        <div className="h-80 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
-            <img
-                src={getImage(product.image)}
-                alt={product.name}
-                className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition duration-500 shadow-md"
-            />
-            {product.isFeatured && (
-                <div className="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                    ⭐ FEATURED
-                </div>
-            )}
-            {product.stock === 0 && (
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-2xl">
-                    <span className="text-white font-bold text-lg">Out of Stock</span>
-                </div>
-            )}
-        </div>
-        <div className="p-8">
-            <div className="text-green-600 text-sm font-bold mb-2 uppercase tracking-wide">{product.category}</div>
-            <h3 className="text-2xl font-serif font-bold mb-2 text-green-900">{product.name}</h3>
-            <p className="text-gray-500 text-sm mb-6 leading-relaxed line-clamp-2">{product.description}</p>
-            <div className="flex justify-between items-center border-t border-green-50 pt-6">
-                <span className="text-2xl font-bold text-green-800">LKR {product.price.toLocaleString()}</span>
-                <button
-                    disabled={product.stock === 0}
-                    onClick={() => onAddToCart(product)}
-                    className="bg-green-800 text-white px-6 py-2 rounded-full hover:bg-green-700 transition shadow-lg hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed"
+const ProductCard = ({ product, onAddToCart }) => {
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    return (
+        <div 
+            className="group relative bg-transparent rounded-3xl w-full h-[480px] perspective-1000"
+            onMouseLeave={() => setIsFlipped(false)}
+        >
+            <div className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                
+                {/* --- FRONT OF CARD --- */}
+                <div 
+                    className="absolute w-full h-full backface-hidden bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 flex flex-col cursor-pointer"
+                    onClick={() => setIsFlipped(true)}
                 >
-                    {product.stock === 0 ? 'Sold Out' : 'Add to Cart'}
-                </button>
+                    <div className="h-60 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
+                        <img
+                            src={getImage(product.image)}
+                            alt={product.name}
+                            className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition duration-500 shadow-md"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition flex items-center justify-center pointer-events-none">
+                            <span className="opacity-0 group-hover:opacity-100 bg-white/90 text-green-800 text-xs font-bold px-4 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition duration-300 pointer-events-none">
+                                Tap for Details ↺
+                            </span>
+                        </div>
+                        {product.isFeatured && (
+                            <div className="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 pointer-events-none">
+                                ⭐ FEATURED
+                            </div>
+                        )}
+                        {product.stock === 0 && (
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-2xl z-10 pointer-events-none">
+                                <span className="text-white font-bold text-lg">Out of Stock</span>
+                            </div>
+                        )}
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col justify-between pointer-events-none">
+                        <div>
+                            <div className="text-green-600 text-sm font-bold mb-1 uppercase tracking-wide">{product.category}</div>
+                            <h3 className="text-xl font-serif font-bold mb-2 text-green-900">{product.name}</h3>
+                            <p className="text-gray-500 text-sm mb-4 leading-relaxed line-clamp-2">{product.description}</p>
+                        </div>
+                        <div className="flex justify-between items-center border-t border-green-50 pt-4 mt-auto">
+                            <span className="text-xl font-bold text-green-800">LKR {product.price.toLocaleString()}</span>
+                            <button
+                                disabled={product.stock === 0}
+                                onClick={(e) => { e.stopPropagation(); onAddToCart(product); }}
+                                className="bg-green-800 text-white px-5 py-2 text-sm rounded-full hover:bg-green-700 transition shadow-md hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto"
+                            >
+                                {product.stock === 0 ? 'Sold Out' : 'Add to Cart'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- BACK OF CARD --- */}
+                <div 
+                    className="absolute w-full h-full backface-hidden bg-[#0A1610] rounded-3xl overflow-hidden shadow-2xl border border-green-900 rotate-y-180 p-6 flex flex-col text-white cursor-pointer"
+                    onClick={() => setIsFlipped(false)}
+                >
+                    <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-2xl font-serif font-bold text-green-50">{product.name}</h3>
+                        <button 
+                            onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
+                            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition flex-shrink-0"
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    
+                    <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar pointer-events-auto cursor-default">
+                        <h4 className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <span className="w-4 h-[1px] bg-green-400"></span>
+                            Full Description
+                        </h4>
+                        <p className="text-stone-300 text-sm leading-relaxed mb-6">{product.description}</p>
+                        
+                        <div className="bg-white/5 rounded-2xl p-4 border border-white/10 mb-4">
+                            <div className="flex justify-between items-center mb-3">
+                                <span className="text-stone-400 text-xs uppercase tracking-wider">Availability</span>
+                                <span className="text-white font-bold text-sm">{product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-stone-400 text-xs uppercase tracking-wider">Category</span>
+                                <span className="text-white font-bold text-sm">{product.category}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-white/10 pointer-events-auto">
+                        <button
+                            disabled={product.stock === 0}
+                            onClick={(e) => { e.stopPropagation(); onAddToCart(product); setIsFlipped(false); }}
+                            className="w-full bg-white text-green-950 py-3 rounded-xl font-bold hover:bg-green-50 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                        >
+                            {product.stock === 0 ? 'Sold Out' : `Add to Cart — LKR ${product.price.toLocaleString()}`}
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 const Products = () => {
     const [products, setProducts] = useState([]);

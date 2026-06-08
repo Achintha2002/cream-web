@@ -194,3 +194,9 @@ h1, h2, h3, h4, .font-serif {
 
 /* ─── Scroll behavior ────────────────────────────────── */
 html { scroll-behavior: smooth; }
+
+/* ─── 3D Flip Utilities ───────────────────────────────── */
+.perspective-1000 { perspective: 1000px; }
+.transform-style-3d { transform-style: preserve-3d; }
+.rotate-y-180 { transform: rotateY(180deg); }
+.backface-hidden { backface-visibility: hidden; }
