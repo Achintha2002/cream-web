@@ -59,7 +59,7 @@ const CartDrawer = () => {
                                 onClick={() => setIsCartOpen(false)}
                                 className="mt-4 px-6 py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition font-medium"
                             >
-                                Shop Now 🌿
+                                Shop Now
                             </button>
                         </div>
                     ) : (
@@ -75,7 +75,7 @@ const CartDrawer = () => {
                                         <h4 className="font-serif font-bold text-green-900 text-sm leading-tight">{item.name}</h4>
                                         <p className="text-green-600 text-xs mt-1">{item.category}</p>
                                         <p className="text-green-800 font-bold mt-2">LKR {(item.price * item.quantity).toLocaleString()}</p>
-                                        
+
                                         {/* Quantity Controls */}
                                         <div className="flex items-center gap-2 mt-3">
                                             <button
@@ -130,7 +130,7 @@ const CartDrawer = () => {
                         </div>
 
                         {/* Checkout Button */}
-                        <button 
+                        <button
                             onClick={() => {
                                 setIsCartOpen(false);
                                 navigate('/checkout');

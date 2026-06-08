@@ -134,9 +134,9 @@ const Home = () => {
                             <div className="flex text-green-500 mb-4">★★★★★</div>
                             <p className="text-gray-700 italic mb-6">"Nature in a jar. Seriously, the texture is so light. Loves it!"</p>
                             <div className="flex items-center">
-                                <div className="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold mr-3">A</div>
+                                <div className="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold mr-3">L</div>
                                 <div>
-                                    <h4 className="font-bold text-gray-900">Amasha S.</h4>
+                                    <h4 className="font-bold text-gray-900"> Lihini J.</h4>
                                 </div>
                             </div>
                         </div>

@@ -39,7 +39,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="border-t border-green-800 pt-8 text-center text-green-400 text-sm">
-                    &copy; 2024 Raani Cream. 100% Organic. Designed with 💚.
+                    &copy; 2026 Raani Cream. 100% Organic. Designed with 💚.
                 </div>
             </div>
         </footer>

@@ -10,13 +10,13 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    
+
     const [status, setStatus] = useState(null); // 'loading' | 'success' | 'error'
     const [errorMsg, setErrorMsg] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!name || !email || !password || !confirmPassword) {
             setStatus('error');
             setErrorMsg('Please fill in all fields.');
@@ -56,7 +56,7 @@ const Register = () => {
 
             <div className="w-full max-w-md bg-white p-10 rounded-3xl shadow-xl border border-green-100 relative z-10">
                 <div className="text-center mb-8">
-                    <span className="text-4xl text-green-700">🌿</span>
+                    <span className="text-4xl text-green-700"></span>
                     <h2 className="text-3xl font-serif font-bold text-green-900 mt-3">Join RAANI</h2>
                     <p className="text-gray-500 text-sm mt-2">Create an account to start your clean beauty journey</p>
                 </div>
@@ -123,7 +123,7 @@ const Register = () => {
                     >
                         {status === 'loading' ? (
                             <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> Registering...</>
-                        ) : 'Create Account 🌿'}
+                        ) : 'Create Account'}
                     </button>
                 </form>
 

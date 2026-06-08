@@ -53,7 +53,7 @@ const MyInquiries = () => {
         try {
             setSubmitLoading(true);
             setError(null);
-            
+
             // Auto fill name and email from authenticated user context
             const payload = {
                 name: user.name,
@@ -69,7 +69,7 @@ const MyInquiries = () => {
                 setFormData({ subject: '', message: '', phone: '' });
                 // Refresh list
                 fetchMyInquiries();
-                
+
                 // Clear success message after 5 seconds
                 setTimeout(() => setSuccessMessage(''), 5000);
             }
@@ -104,7 +104,7 @@ const MyInquiries = () => {
                     {/* Inquiry submission form */}
                     <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm lg:col-span-2">
                         <h3 className="font-serif font-bold text-slate-800 text-lg mb-5 pb-3 border-b">📩 Submit an Inquiry</h3>
-                        
+
                         {successMessage && (
                             <div className="mb-5 p-4 bg-green-50 border border-green-200 rounded-2xl text-green-700 text-sm font-medium">
                                 {successMessage}
@@ -173,7 +173,7 @@ const MyInquiries = () => {
                             >
                                 {submitLoading ? (
                                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                ) : '🌿 Send Inquiry'}
+                                ) : 'Send Inquiry'}
                             </button>
                         </form>
                     </div>

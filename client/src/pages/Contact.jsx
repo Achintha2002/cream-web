@@ -109,7 +109,7 @@ const Contact = () => {
                             >
                                 {status === 'loading' ? (
                                     <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> Sending...</>
-                                ) : 'Send Message 🌿'}
+                                ) : 'Send Message'}
                             </button>
                         </form>
                     </div>
