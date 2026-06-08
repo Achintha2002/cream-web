@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center pt-24 bg-green-50 overflow-hidden">
+            <section className="relative min-h-screen flex items-center pt-28 bg-[#F7F5F2] overflow-hidden">
                 {/* Background Elements */}
                 <div className="absolute top-0 right-0 w-2/3 h-full bg-green-100/40 rounded-l-[200px] hidden lg:block"></div>
                 <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-green-200/30 rounded-full blur-3xl"></div>

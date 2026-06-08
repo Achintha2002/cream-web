@@ -3,43 +3,83 @@ import logoImg from '../assets/images/logo.png';
 
 const Footer = () => {
     return (
-        <footer className="bg-green-900 text-white pt-16 pb-8 border-t-4 border-green-600">
+        <footer className="bg-[#0F1F16] text-white pt-20 pb-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                    <div>
-                        <img src={logoImg} alt="Raani Cream Logo" className="h-24 object-contain mb-4 bg-white p-2 rounded-xl" />
-                        <p className="text-green-100">Unveiling your natural beauty with the purest ingredients from Mother
-                            Earth.</p>
-                    </div>
-                    <div>
-                        <h4 className="text-lg font-bold mb-6 text-green-300">Quick Links</h4>
-                        <ul className="space-y-3 text-green-100">
-                            <li><Link to="/" className="hover:text-white transition">Home</Link></li>
-                            <li><Link to="/about" className="hover:text-white transition">Our Story</Link></li>
-                            <li><Link to="/products" className="hover:text-white transition">Products</Link></li>
-                            <li><Link to="/contact" className="hover:text-white transition">Contact</Link></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-lg font-bold mb-6 text-green-300">Contact</h4>
-                        <ul className="space-y-3 text-green-100">
-                            <li>No. 12, Lotus Road, Colombo 03</li>
-                            <li>+94 77 123 4567</li>
-                            <li>hello@raani.lk</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-lg font-bold mb-6 text-green-300">Join the Green Movement</h4>
-                        <div className="flex">
-                            <input type="email" placeholder="Your email"
-                                className="bg-green-800 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-green-400 w-full placeholder-green-400 border border-green-700" />
-                            <button
-                                className="bg-white text-green-900 px-4 py-2 rounded-r-lg font-bold hover:bg-green-100 transition">Go</button>
+
+                {/* Top Section */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+
+                    {/* Brand Column */}
+                    <div className="md:col-span-4">
+                        <img src={logoImg} alt="Raani Cream" className="h-20 w-auto mix-blend-screen object-contain mb-6 opacity-90" />
+                        <p className="text-stone-400 text-sm leading-relaxed max-w-xs">
+                            Unveiling your natural beauty with the purest botanicals from the island's finest gardens.
+                        </p>
+                        {/* Social Links */}
+                        <div className="flex gap-4 mt-6">
+                            {[
+                                { label: 'Instagram', path: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' },
+                                { label: 'Facebook', path: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' },
+                            ].map(({ label, path }) => (
+                                <a key={label} href="#" aria-label={label} className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-stone-400 hover:text-white hover:border-white/50 transition">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d={path} />
+                                    </svg>
+                                </a>
+                            ))}
                         </div>
                     </div>
+
+                    {/* Links Column */}
+                    <div className="md:col-span-2">
+                        <h5 className="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-5">Explore</h5>
+                        <ul className="space-y-3">
+                            {[['/', 'Home'], ['/about', 'Our Story'], ['/products', 'Shop All'], ['/gallery', 'Gallery'], ['/contact', 'Contact']].map(([to, label]) => (
+                                <li key={to}><Link to={to} className="text-stone-400 text-sm hover:text-white transition">{label}</Link></li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Contact Column */}
+                    <div className="md:col-span-3">
+                        <h5 className="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-5">Get in Touch</h5>
+                        <ul className="space-y-3 text-stone-400 text-sm">
+                            <li className="flex items-start gap-2">
+                                <span className="mt-0.5 text-green-500">📍</span>
+                                No. 12, Lotus Road, Colombo 03
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-green-500">📞</span>
+                                +94 77 123 4567
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-green-500">✉️</span>
+                                hello@raani.lk
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Newsletter Column */}
+                    <div className="md:col-span-3">
+                        <h5 className="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-5">Stay in the Loop</h5>
+                        <p className="text-stone-400 text-sm mb-4">Join our community for skincare tips, offers & more.</p>
+                        <form className="flex">
+                            <input
+                                type="email"
+                                placeholder="your@email.com"
+                                className="flex-1 bg-white/5 border border-white/10 text-white placeholder-stone-600 px-4 py-2.5 rounded-l-full text-sm focus:outline-none focus:border-green-600 transition"
+                            />
+                            <button type="submit" className="bg-green-700 hover:bg-green-600 text-white px-5 py-2.5 rounded-r-full text-xs font-bold tracking-wider transition">
+                                →
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div className="border-t border-green-800 pt-8 text-center text-green-400 text-sm">
-                    &copy; 2026 Raani Cream. 100% Organic. Designed with 💚.
+
+                {/* Bottom Bar */}
+                <div className="pt-10 flex flex-col md:flex-row items-center justify-between gap-4 text-stone-600 text-xs">
+                    <p>© 2026 Raani Cream. All rights reserved.</p>
+                    <p className="tracking-widest uppercase">Pure · Natural · Sri Lankan</p>
                 </div>
             </div>
         </footer>
