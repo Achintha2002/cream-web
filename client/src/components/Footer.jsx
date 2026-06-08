@@ -83,10 +83,10 @@ const Footer = () => {
                         <span className="tracking-widest uppercase">Pure · Natural · Sri Lankan</span>
                         <span className="hidden md:inline text-stone-700 text-[10px]">✦</span>
                         <span className="flex items-center gap-1.5 group cursor-pointer">
-                            <span className="text-stone-500 group-hover:text-stone-300 transition-colors">Designed & Developed by</span>
-                            <span className="font-bold text-stone-400 group-hover:text-green-400 transition-colors relative">
+                            <span className="text-stone-500 group-hover:text-stone-300 transition-colors text-xs uppercase tracking-wider">Designed & Developed by</span>
+                            <span className="font-serif italic text-lg text-stone-300 group-hover:text-green-400 transition-colors relative tracking-wide">
                                 Achintha
-                                <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-green-400 group-hover:w-full transition-all duration-300"></span>
+                                <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-green-400 group-hover:w-full transition-all duration-500"></span>
                             </span>
                         </span>
                     </div>
