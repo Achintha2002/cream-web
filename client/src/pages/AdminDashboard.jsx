@@ -750,15 +750,51 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label className="block text-slate-600 font-semibold mb-1 text-xs uppercase tracking-wider">Image Resource Path</label>
+                                    <div className="space-y-3">
+                                        <label className="block text-slate-600 font-semibold text-xs uppercase tracking-wider">Product Image</label>
+                                        
+                                        <div className="flex items-center justify-center w-full">
+                                            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 transition">
+                                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                    <span className="text-2xl mb-2">📸</span>
+                                                    <p className="mb-1 text-sm text-slate-500 font-semibold">Click to upload image</p>
+                                                    <p className="text-xs text-slate-400">PNG, JPG or WEBP (Max 2MB)</p>
+                                                </div>
+                                                <input 
+                                                    id="dropzone-file" 
+                                                    type="file" 
+                                                    className="hidden" 
+                                                    accept="image/*"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files[0];
+                                                        if (file) {
+                                                            if (file.size > 2 * 1024 * 1024) {
+                                                                alert('File size exceeds 2MB limit.');
+                                                                return;
+                                                            }
+                                                            const reader = new FileReader();
+                                                            reader.onloadend = () => {
+                                                                setNewProduct({ ...newProduct, image: reader.result });
+                                                            };
+                                                            reader.readAsDataURL(file);
+                                                        }
+                                                    }}
+                                                />
+                                            </label>
+                                        </div>
+
+                                        <div className="flex items-center gap-4">
+                                            <div className="flex-1 h-px bg-slate-200"></div>
+                                            <span className="text-xs text-slate-400 font-bold uppercase">OR USE URL</span>
+                                            <div className="flex-1 h-px bg-slate-200"></div>
+                                        </div>
+
                                         <input
                                             type="text"
-                                            required
                                             value={newProduct.image}
                                             onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
                                             className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none"
-                                            placeholder="/images/mockup_royal.png"
+                                            placeholder="Paste image URL here... (e.g. https://... or /images/...)"
                                         />
                                     </div>
 
