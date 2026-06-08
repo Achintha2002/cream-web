@@ -148,6 +148,7 @@ const Navbar = () => {
                                 </button>
                                 <div className={`absolute right-0 top-full mt-3 w-48 bg-white border border-stone-200 rounded-xl shadow-xl py-2 z-50 text-sm transition-all duration-200 ${isUserMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'}`}>
                                     <div className="px-4 py-2 text-xs text-gray-400 uppercase tracking-widest border-b border-stone-100">{user.name}</div>
+                                    <Link to="/profile" className="block px-4 py-2.5 text-gray-700 hover:bg-stone-50 hover:text-green-900 transition">My Profile</Link>
                                     <Link to="/my-inquiries" className="block px-4 py-2.5 text-gray-700 hover:bg-stone-50 hover:text-green-900 transition">My Inquiries</Link>
                                     {user.role === 'admin' && (
                                         <Link to="/admin" className="block px-4 py-2.5 text-amber-600 hover:bg-amber-50 transition">Admin Panel</Link>

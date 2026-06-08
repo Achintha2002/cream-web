@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import MyInquiries from './pages/MyInquiries';
+import Profile from './pages/Profile';
 import AdminRoute from './components/AdminRoute';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<Register />} />
                                 <Route path="/my-inquiries" element={<MyInquiries />} />
+                                <Route path="/profile" element={<Profile />} />
                                 <Route path="/admin" element={
                                     <AdminRoute>
                                         <AdminDashboard />
