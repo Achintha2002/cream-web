@@ -82,7 +82,7 @@ const MyInquiries = () => {
 
     if (!user) {
         return (
-            <div className="min-h-screen pt-28 pb-16 flex items-center justify-center bg-slate-50">
+            <div className="min-h-screen pt-36 pb-16 flex items-center justify-center bg-slate-50">
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-md text-center max-w-sm">
                     <p className="text-slate-600 mb-5 font-medium">Please log in to submit and track your inquiries.</p>
                     <a href="/login" className="px-6 py-2.5 bg-green-800 text-white rounded-xl font-bold hover:bg-green-900 transition">Log In</a>
@@ -92,7 +92,7 @@ const MyInquiries = () => {
     }
 
     return (
-        <div className="min-h-screen pt-28 pb-16 bg-slate-50 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen pt-36 pb-16 bg-slate-50 px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
