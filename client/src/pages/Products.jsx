@@ -32,6 +32,7 @@ const imageMap = {
     '/images/gift_3.png': new URL('../assets/images/gift_3.png', import.meta.url).href,
     '/images/gift_4.png': new URL('../assets/images/gift_4.png', import.meta.url).href,
     '/images/gift_5.png': new URL('../assets/images/gift_5.png', import.meta.url).href,
+    '/images/promo_green_kit.png': new URL('../assets/images/promo_green_kit.png', import.meta.url).href,
 };
 
 const getImage = (imgPath) => imageMap[imgPath] || imgPath;
@@ -270,7 +271,7 @@ const Products = () => {
                                 name: 'The Green Starter Kit',
                                 price: 6500,
                                 stock: 999,
-                                image: '/images/mockup_organic.png',
+                                image: '/images/promo_green_kit.png',
                                 category: 'Bundles',
                                 description: 'Starter kit with all essentials for complete natural care.'
                             });

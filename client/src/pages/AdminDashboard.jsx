@@ -703,7 +703,12 @@ const AdminDashboard = () => {
                                                 required
                                                 min="1"
                                                 value={newProduct.price}
-                                                onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                                                onChange={(e) => {
+                                                    const val = e.target.value;
+                                                    if (val === '' || Number(val) >= 0) {
+                                                        setNewProduct({ ...newProduct, price: val });
+                                                    }
+                                                }}
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-green-500 font-semibold"
                                                 placeholder="2800"
                                             />
@@ -715,7 +720,12 @@ const AdminDashboard = () => {
                                                 required
                                                 min="0"
                                                 value={newProduct.stock}
-                                                onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
+                                                onChange={(e) => {
+                                                    const val = e.target.value;
+                                                    if (val === '' || Number(val) >= 0) {
+                                                        setNewProduct({ ...newProduct, stock: val });
+                                                    }
+                                                }}
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-green-500 font-semibold"
                                                 placeholder="50"
                                             />
