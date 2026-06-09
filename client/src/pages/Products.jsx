@@ -160,8 +160,13 @@ const Products = () => {
             try {
                 const res = await productsAPI.getAll();
                 if (res.success && res.data) {
-                    const uniqueCategories = ['All', ...new Set(res.data.map(p => p.category))];
-                    setCategories(uniqueCategories);
+                    const raw = [...new Set(res.data.map(p => p.category))];
+                    // Custom order: Soap near top, Gifts at end
+                    const priority = ['Soap'];
+                    const end = ['Gifts'];
+                    const middle = raw.filter(c => !priority.includes(c) && !end.includes(c));
+                    const sorted = ['All', ...priority.filter(c => raw.includes(c)), ...middle, ...end.filter(c => raw.includes(c))];
+                    setCategories(sorted);
                 }
             } catch (err) {
                 console.error('Failed to extract categories:', err);

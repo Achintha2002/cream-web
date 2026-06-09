@@ -7,6 +7,7 @@ const imageMap = {
     '/images/mockup_night_organic.png': new URL('../assets/images/mockup_night_organic.png', import.meta.url).href,
     '/images/mockup_minimalist.png': new URL('../assets/images/mockup_minimalist.png', import.meta.url).href,
     '/images/mockup_organic.png': new URL('../assets/images/mockup_organic.png', import.meta.url).href,
+    '/images/promo_green_kit.png': new URL('../assets/images/promo_green_kit.png', import.meta.url).href,
 };
 const getImage = (img) => imageMap[img] || img;
 
@@ -121,7 +122,7 @@ const CartDrawer = () => {
                             </div>
                             <div className="flex justify-between text-sm text-gray-600">
                                 <span>Delivery</span>
-                                <span>Free 🌿</span>
+                                <span>Free </span>
                             </div>
                             <div className="flex justify-between text-lg font-bold text-green-900 pt-2 border-t border-green-100">
                                 <span>Total</span>
@@ -137,7 +138,7 @@ const CartDrawer = () => {
                             }}
                             className="w-full py-4 bg-green-800 text-white font-bold rounded-2xl hover:bg-green-900 transition shadow-lg hover:shadow-green-200 transform hover:-translate-y-0.5 text-lg"
                         >
-                            Checkout 🛍️
+                            Checkout
                         </button>
                         <button
                             onClick={() => setIsCartOpen(false)}

@@ -35,7 +35,7 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!formData.name || !formData.email || !formData.phone || !formData.street || !formData.city) {
             setStatus('error');
             alert('Please fill in all required fields.');
@@ -86,7 +86,7 @@ const Checkout = () => {
                     <span className="text-7xl mb-6 animate-bounce">🎉</span>
                     <h1 className="text-4xl font-serif font-bold text-green-900 mb-2">Order Confirmed!</h1>
                     <p className="text-gray-500 mb-6">Thank you for shopping with RAANI. Your order has been placed successfully.</p>
-                    
+
                     <div className="w-full bg-green-50 p-6 rounded-2xl border border-green-100 text-left mb-8 space-y-3">
                         <p className="text-green-800 font-bold">Order Details:</p>
                         <p className="text-gray-700 text-sm"><span className="font-semibold">Order ID:</span> {orderResult._id}</p>
@@ -96,7 +96,7 @@ const Checkout = () => {
                     </div>
 
                     <Link to="/products" className="px-8 py-4 bg-green-800 text-white rounded-full font-bold shadow-lg hover:bg-green-900 transition">
-                        Continue Shopping 🌿
+                        Continue Shopping
                     </Link>
                 </div>
             </div>
@@ -118,12 +118,12 @@ const Checkout = () => {
     return (
         <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 className="text-4xl font-serif font-bold text-green-900 mb-10 text-center">Checkout</h1>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 {/* Form Billing */}
                 <div className="lg:col-span-7 bg-white p-8 rounded-3xl shadow-lg border border-green-50">
                     <h3 className="text-2xl font-serif font-bold mb-6 text-green-800 border-b border-green-50 pb-4">
-                        Shipping & Delivery Details 🚚
+                        Shipping & Delivery Details
                     </h3>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -216,7 +216,7 @@ const Checkout = () => {
                 <div className="lg:col-span-5 space-y-6">
                     <div className="bg-green-50/50 p-8 rounded-3xl border border-green-100">
                         <h3 className="text-2xl font-serif font-bold mb-6 text-green-800">Order Summary</h3>
-                        
+
                         <div className="divide-y divide-green-100 max-h-96 overflow-y-auto pr-2">
                             {cartItems.map(item => (
                                 <div key={item._id} className="py-4 flex gap-4">

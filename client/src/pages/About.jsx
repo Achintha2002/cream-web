@@ -26,7 +26,7 @@ const About = () => {
                             Raani Organic began with a simple belief: nature provides everything we need. We replaced harsh synthetics with fresh Aloe Vera, wild turmeric, and organic saffron.
                         </p>
                         <p className="text-gray-600 mb-8 leading-relaxed">
-                            Every jar is a testament to the purity of our island's soil. No fillers, just pure botanical power designed to bring out your natural, healthy glow. It's truly "Supiri" – superior in every way.
+                            Every jar is a testament to the purity of our island's soil. No fillers, just pure botanical power designed to bring out your natural, healthy glow. It's truly superior in every way.
                         </p>
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">🌱</div>
