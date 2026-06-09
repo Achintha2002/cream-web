@@ -226,6 +226,33 @@ export const authAPI = {
         });
         if (!res.ok) throw new Error('Failed to fetch users');
         return res.json();
+    },
+    forgotPassword: async (email) => {
+        const res = await fetch(`${API_BASE_URL}/auth/forgotpassword`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+        if (!res.ok) {
+            const errData = await res.json();
+            if (errData.devResetUrl) {
+                return { devResetUrl: errData.devResetUrl, message: errData.message };
+            }
+            throw new Error(errData.message || 'Request failed');
+        }
+        return res.json();
+    },
+    resetPassword: async (token, password) => {
+        const res = await fetch(`${API_BASE_URL}/auth/resetpassword/${token}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password }),
+        });
+        if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.message || 'Reset failed');
+        }
+        return res.json();
     }
 };
 

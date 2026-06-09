@@ -13,6 +13,8 @@ import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import AdminDashboard from './pages/AdminDashboard';
 import MyInquiries from './pages/MyInquiries';
 import Profile from './pages/Profile';
@@ -47,6 +49,8 @@ function App() {
                                 <Route path="/checkout" element={<Checkout />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<Register />} />
+                                <Route path="/forgot-password" element={<ForgotPassword />} />
+                                <Route path="/resetpassword/:resettoken" element={<ResetPassword />} />
                                 <Route path="/my-inquiries" element={<MyInquiries />} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/admin" element={
