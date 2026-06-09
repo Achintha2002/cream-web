@@ -476,7 +476,7 @@ const AdminDashboard = () => {
                                             </div>
                                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                                                 <div
-                                                    className="bg-blue-50 h-full rounded-full"
+                                                    className="bg-blue-500 h-full rounded-full"
                                                     style={{ width: `${totalOrders > 0 ? (statusCounts.processing / totalOrders) * 100 : 0}%` }}
                                                 ></div>
                                             </div>
@@ -762,7 +762,7 @@ const AdminDashboard = () => {
 
                                     <div className="space-y-3">
                                         <label className="block text-slate-600 font-semibold text-xs uppercase tracking-wider">Product Image</label>
-                                        
+
                                         <div className="flex items-center justify-center w-full">
                                             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 transition">
                                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -770,10 +770,10 @@ const AdminDashboard = () => {
                                                     <p className="mb-1 text-sm text-slate-500 font-semibold">Click to upload image</p>
                                                     <p className="text-xs text-slate-400">PNG, JPG or WEBP (Max 2MB)</p>
                                                 </div>
-                                                <input 
-                                                    id="dropzone-file" 
-                                                    type="file" 
-                                                    className="hidden" 
+                                                <input
+                                                    id="dropzone-file"
+                                                    type="file"
+                                                    className="hidden"
                                                     accept="image/*"
                                                     onChange={(e) => {
                                                         const file = e.target.files[0];
@@ -1038,8 +1038,8 @@ const AdminDashboard = () => {
                                                                 </div>
                                                                 <div className="flex flex-col items-end gap-2">
                                                                     <span className={`px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider ${order.status === 'delivered' ? 'bg-green-100 text-green-700' :
-                                                                            order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                                                                                'bg-amber-100 text-amber-700'
+                                                                        order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                                                                            'bg-amber-100 text-amber-700'
                                                                         }`}>
                                                                         {order.status}
                                                                     </span>
