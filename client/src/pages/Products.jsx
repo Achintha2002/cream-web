@@ -64,8 +64,8 @@ const ProductCard = ({ product, onAddToCart }) => {
                             </span>
                         </div>
                         {product.isFeatured && (
-                            <div className="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 pointer-events-none">
-                                ⭐ FEATURED
+                            <div className="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 pointer-events-none flex items-center gap-1">
+                                <span className="text-yellow-300">★</span> FEATURED
                             </div>
                         )}
                         {product.stock === 0 && (
@@ -244,7 +244,7 @@ const Products = () => {
                     )}
                     {error && (
                         <div className="text-center py-20">
-                            <p className="text-red-500 text-lg">❌ {error}</p>
+                            <p className="text-red-500 text-lg">! {error}</p>
                             <p className="text-gray-400 mt-2">Please make sure the backend server is running.</p>
                         </div>
                     )}

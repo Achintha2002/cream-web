@@ -3,21 +3,28 @@ import imgMockupOrganic from '../assets/images/mockup_organic.png';
 import imgIngredients from '../assets/images/ingredients.png';
 import imgMockupRoyal from '../assets/images/mockup_royal.png';
 
+import iconPlantBased from '../assets/images/icons/icon_plant_based_1781082889362.png';
+import iconCrueltyFree from '../assets/images/icons/icon_cruelty_free_1781082902686.png';
+import iconSriLanka from '../assets/images/icons/icon_sri_lanka_1781082920997.png';
+import iconClean from '../assets/images/icons/icon_clean_1781082934772.png';
+import featureAloe from '../assets/images/icons/feature_aloe_1781082954006.png';
+import featureGlow from '../assets/images/icons/feature_glow_1781082970941.png';
+
 /* ── Reusable badge component matching reference style ── */
-const TrustBadge = ({ emoji, label }) => (
+const TrustBadge = ({ icon, label }) => (
     <div className="flex items-center gap-3 bg-white rounded-2xl px-5 py-3 shadow-sm border border-stone-100">
-        <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-xl flex-shrink-0">
-            {emoji}
+        <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 overflow-hidden mix-blend-multiply">
+            <img src={icon} alt={label} className="w-[120%] h-[120%] object-cover" />
         </div>
         <span className="text-sm font-semibold text-green-900 whitespace-nowrap">{label}</span>
     </div>
 );
 
 /* ── Feature card ── */
-const FeatureCard = ({ emoji, title, desc }) => (
+const FeatureCard = ({ icon, title, desc }) => (
     <div className="group flex flex-col items-center text-center p-10 rounded-3xl border border-stone-100 bg-white hover:border-green-200 hover:shadow-xl transition-all duration-300">
-        <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
-            {emoji}
+        <div className="w-24 h-24 rounded-full bg-green-50/50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden mix-blend-multiply">
+            <img src={icon} alt={title} className="w-[120%] h-[120%] object-cover" />
         </div>
         <h3 className="text-2xl font-serif font-bold text-green-900 mb-3">{title}</h3>
         <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
@@ -73,10 +80,10 @@ const Home = () => {
 
                         {/* Trust Badges — reference style */}
                         <div className="flex flex-wrap gap-3 pt-4">
-                            <TrustBadge emoji="🌿" label="100% Plant Based" />
-                            <TrustBadge emoji="🐇" label="Cruelty Free" />
-                            <TrustBadge emoji="🇱🇰" label="Made in Sri Lanka" />
-                            <TrustBadge emoji="✨" label="No Harsh Chemicals" />
+                            <TrustBadge icon={iconPlantBased} label="100% Plant Based" />
+                            <TrustBadge icon={iconCrueltyFree} label="Cruelty Free" />
+                            <TrustBadge icon={iconSriLanka} label="Made in Sri Lanka" />
+                            <TrustBadge icon={iconClean} label="No Harsh Chemicals" />
                         </div>
                     </div>
 
@@ -125,9 +132,9 @@ const Home = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <FeatureCard emoji="🍃" title="Fresh Aloe Vera" desc="Harvested fresh to soothe and hydrate your skin deeply, leaving it soft and radiant." />
-                        <FeatureCard emoji="🐇" title="Cruelty Free" desc="Tested on queens, never on animals. We are 100% ethical and certified cruelty-free." />
-                        <FeatureCard emoji="✨" title="Natural Glow" desc="Unlock that supiri radiance with pure saffron extracts and time-honoured botanical blends." />
+                        <FeatureCard icon={featureAloe} title="Fresh Aloe Vera" desc="Harvested fresh to soothe and hydrate your skin deeply, leaving it soft and radiant." />
+                        <FeatureCard icon={iconCrueltyFree} title="Cruelty Free" desc="Tested on queens, never on animals. We are 100% ethical and certified cruelty-free." />
+                        <FeatureCard icon={featureGlow} title="Natural Glow" desc="Unlock that supiri radiance with pure saffron extracts and time-honoured botanical blends." />
                     </div>
                 </div>
             </section>
@@ -148,7 +155,7 @@ const Home = () => {
                         </p>
                         {/* Inline badges */}
                         <div className="flex flex-wrap gap-3 mb-8">
-                            {['🌿 Aloe Vera', '🌸 Rose Water', '🌻 Saffron Extract', '🥥 Coconut Oil'].map(b => (
+                            {['Aloe Vera', 'Rose Water', 'Saffron Extract', 'Coconut Oil'].map(b => (
                                 <span key={b} className="flex items-center gap-1.5 bg-white/10 border border-white/20 text-green-100 text-xs font-medium px-4 py-2 rounded-full">
                                     {b}
                                 </span>

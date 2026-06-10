@@ -3,6 +3,8 @@ import { useCart } from '../context/CartContext';
 import { ordersAPI } from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 
+import featureGlow from '../assets/images/icons/feature_glow_1781082970941.png';
+
 const imageMap = {
     '/images/mockup_royal.png': new URL('../assets/images/mockup_royal.png', import.meta.url).href,
     '/images/mockup_ethereal.png': new URL('../assets/images/mockup_ethereal.png', import.meta.url).href,
@@ -87,7 +89,7 @@ const Checkout = () => {
         return (
             <div className="pt-32 pb-24 max-w-3xl mx-auto px-4 text-center">
                 <div className="bg-white p-10 md:p-16 rounded-3xl shadow-xl border border-green-100 flex flex-col items-center">
-                    <span className="text-7xl mb-6 animate-bounce">🎉</span>
+                    <img src={featureGlow} alt="Success" className="w-32 h-32 mb-6 object-contain mix-blend-multiply animate-pulse" />
                     <h1 className="text-4xl font-serif font-bold text-green-900 mb-2">Order Confirmed!</h1>
                     <p className="text-gray-500 mb-6">Thank you for shopping with RAANI. Your order has been placed successfully.</p>
 
@@ -216,7 +218,7 @@ const Checkout = () => {
 
                         {status === 'error' && errorMessage && (
                             <div className="p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 text-sm font-medium text-center">
-                                ❌ {errorMessage}
+                                ! {errorMessage}
                             </div>
                         )}
                     </form>
