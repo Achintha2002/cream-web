@@ -5,7 +5,7 @@ import imgMockupRoyal from '../assets/images/mockup_royal.png';
 
 import iconPlantBased from '../assets/images/icons/icon_plant_based_1781082889362.png';
 import iconCrueltyFree from '../assets/images/icons/icon_cruelty_free_1781082902686.png';
-import iconSriLanka from '../assets/images/icons/icon_sri_lanka_1781082920997.png';
+import iconSriLanka from '../assets/images/icons/icon_sri_lanka_flag_1781084748201.png';
 import iconClean from '../assets/images/icons/icon_clean_1781082934772.png';
 import featureAloe from '../assets/images/icons/feature_aloe_1781082954006.png';
 import featureGlow from '../assets/images/icons/feature_glow_1781082970941.png';
