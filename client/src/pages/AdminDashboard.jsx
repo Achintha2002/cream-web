@@ -194,7 +194,8 @@ const AdminDashboard = () => {
         e.preventDefault();
         try {
             setAdminSubmitLoading(true);
-            const res = await fetch('http://localhost:5001/api/auth/register', {
+            const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+            const res = await fetch(`${apiBase}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...newAdmin, role: 'admin' })
