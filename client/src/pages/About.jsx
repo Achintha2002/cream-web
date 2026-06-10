@@ -1,6 +1,11 @@
 import imgModel from '../assets/images/model.png';
 import imgIngredients from '../assets/images/ingredients.png';
 
+import iconPlantBased from '../assets/images/icons/icon_plant_based_1781082889362.png';
+import featureAloe from '../assets/images/icons/feature_aloe_1781082954006.png';
+import iconSaffron from '../assets/images/icons/icon_saffron_1781083976603.png';
+import iconCoconut from '../assets/images/icons/icon_coconut_1781083992170.png';
+
 const About = () => {
     return (
         <div className="pt-24">
@@ -29,7 +34,9 @@ const About = () => {
                             Every jar is a testament to the purity of our island's soil. No fillers, just pure botanical power designed to bring out your natural, healthy glow. It's truly superior in every way.
                         </p>
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">🌱</div>
+                            <div className="w-12 h-12 bg-green-50/80 rounded-full flex items-center justify-center overflow-hidden mix-blend-multiply border border-green-100">
+                                <img src={iconPlantBased} alt="Plant Based" className="w-[120%] h-[120%] object-cover" />
+                            </div>
                             <span className="text-green-800 font-bold">100% Plant Based</span>
                         </div>
                     </div>
@@ -50,24 +57,27 @@ const About = () => {
                         </div>
                         <div className="w-full md:w-1/2 space-y-10">
                             <div className="flex items-start group">
-                                <div className="bg-green-100 p-4 rounded-full mr-6 text-green-600 text-2xl group-hover:bg-green-600 group-hover:text-white transition duration-300">
-                                    🌿</div>
+                                <div className="bg-green-50/80 w-14 h-14 rounded-full mr-6 flex items-center justify-center overflow-hidden mix-blend-multiply border border-green-100 flex-shrink-0 group-hover:scale-110 transition duration-300">
+                                    <img src={featureAloe} alt="Aloe Vera" className="w-[120%] h-[120%] object-cover" />
+                                </div>
                                 <div>
                                     <h3 className="font-bold text-xl mb-2 text-green-900">Organic Aloe Vera</h3>
                                     <p className="text-gray-600">The heart of our formula. Deeply hydrates and calms inflammation instantly.</p>
                                 </div>
                             </div>
                             <div className="flex items-start group">
-                                <div className="bg-orange-100 p-4 rounded-full mr-6 text-orange-600 text-2xl group-hover:bg-orange-500 group-hover:text-white transition duration-300">
-                                    🌸</div>
+                                <div className="bg-orange-50/80 w-14 h-14 rounded-full mr-6 flex items-center justify-center overflow-hidden mix-blend-multiply border border-orange-100 flex-shrink-0 group-hover:scale-110 transition duration-300">
+                                    <img src={iconSaffron} alt="Wild Saffron" className="w-[120%] h-[120%] object-cover" />
+                                </div>
                                 <div>
                                     <h3 className="font-bold text-xl mb-2 text-green-900">Wild Saffron</h3>
                                     <p className="text-gray-600">Hand-picked strands that naturally brighten and even out skin tone.</p>
                                 </div>
                             </div>
                             <div className="flex items-start group">
-                                <div className="bg-yellow-100 p-4 rounded-full mr-6 text-yellow-600 text-2xl group-hover:bg-yellow-500 group-hover:text-white transition duration-300">
-                                    🥥</div>
+                                <div className="bg-yellow-50/80 w-14 h-14 rounded-full mr-6 flex items-center justify-center overflow-hidden mix-blend-multiply border border-yellow-100 flex-shrink-0 group-hover:scale-110 transition duration-300">
+                                    <img src={iconCoconut} alt="Coconut Oil" className="w-[120%] h-[120%] object-cover" />
+                                </div>
                                 <div>
                                     <h3 className="font-bold text-xl mb-2 text-green-900">Virgin Coconut Oil</h3>
                                     <p className="text-gray-600">Locks in moisture and provides a protective barrier against pollution.</p>
