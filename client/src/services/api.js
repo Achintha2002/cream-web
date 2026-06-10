@@ -61,7 +61,10 @@ export const ordersAPI = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderData),
         });
-        if (!res.ok) throw new Error('Failed to place order');
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.message || 'Failed to place order');
+        }
         return res.json();
     },
     getAll: async () => {

@@ -14,9 +14,10 @@ const sendEmail = async (options) => {
 
     const message = {
         from: `${process.env.FROM_NAME || 'Raani Cream'} <${process.env.FROM_EMAIL || 'noreply@raanicream.com'}>`,
-        to: options.email,
+        to: options.to || options.email,
         subject: options.subject,
         text: options.message,
+        html: options.html,
     };
 
     try {

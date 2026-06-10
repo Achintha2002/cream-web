@@ -171,6 +171,24 @@ const AdminDashboard = () => {
         }
     };
 
+    // Handle Update Stock
+    const handleUpdateStock = async (productId, currentStock, change) => {
+        const newStock = Math.max(0, currentStock + change);
+        if (newStock === currentStock) return;
+        
+        try {
+            setActionLoading(`stock_${productId}`);
+            const res = await productsAPI.update(productId, { stock: newStock });
+            if (res.success) {
+                setProducts(products.map(p => p._id === productId ? { ...p, stock: newStock } : p));
+            }
+        } catch (err) {
+            alert('Failed to update stock: ' + err.message);
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
     // Handle Create Admin
     const handleCreateAdmin = async (e) => {
         e.preventDefault();
@@ -629,12 +647,32 @@ const AdminDashboard = () => {
                                                     <td className="py-4 px-4 text-slate-500 font-medium">{product.category}</td>
                                                     <td className="py-4 px-4 font-bold text-slate-800">LKR {product.price.toLocaleString()}</td>
                                                     <td className="py-4 px-4">
-                                                        <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold ${product.stock <= 5 ? 'bg-red-50 text-red-600' :
-                                                            product.stock <= 20 ? 'bg-amber-50 text-amber-600' :
-                                                                'bg-green-50 text-green-700'
-                                                            }`}>
-                                                            {product.stock} units
-                                                        </span>
+                                                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                                                            <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold w-16 text-center ${product.stock <= 5 ? 'bg-red-50 text-red-600' :
+                                                                product.stock <= 20 ? 'bg-amber-50 text-amber-600' :
+                                                                    'bg-green-50 text-green-700'
+                                                                }`}>
+                                                                {product.stock}
+                                                            </span>
+                                                            <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex-shrink-0">
+                                                                <button
+                                                                    onClick={() => handleUpdateStock(product._id, product.stock, -1)}
+                                                                    disabled={actionLoading === `stock_${product._id}` || product.stock === 0}
+                                                                    className="w-7 h-7 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition disabled:opacity-50 font-bold"
+                                                                    title="Decrease stock by 1"
+                                                                >
+                                                                    −
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => handleUpdateStock(product._id, product.stock, 1)}
+                                                                    disabled={actionLoading === `stock_${product._id}`}
+                                                                    className="w-7 h-7 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition disabled:opacity-50 font-bold border-l border-slate-200"
+                                                                    title="Increase stock by 1"
+                                                                >
+                                                                    +
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td className="py-4 px-4">
                                                         {product.isFeatured ? (

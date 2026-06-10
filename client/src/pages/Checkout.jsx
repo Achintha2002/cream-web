@@ -28,6 +28,7 @@ const Checkout = () => {
 
     const [status, setStatus] = useState(null); // 'loading' | 'success' | 'error'
     const [orderResult, setOrderResult] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,7 +39,7 @@ const Checkout = () => {
 
         if (!formData.name || !formData.email || !formData.phone || !formData.street || !formData.city) {
             setStatus('error');
-            alert('Please fill in all required fields.');
+            setErrorMessage('Please fill in all required fields.');
             return;
         }
 
@@ -65,6 +66,7 @@ const Checkout = () => {
 
         try {
             setStatus('loading');
+            setErrorMessage('');
             const response = await ordersAPI.create(orderData);
             if (response.success) {
                 setStatus('success');
@@ -72,9 +74,11 @@ const Checkout = () => {
                 clearCart();
             } else {
                 setStatus('error');
+                setErrorMessage(response.message || 'Failed to place order.');
             }
         } catch (err) {
             setStatus('error');
+            setErrorMessage(err.message || 'Failed to place order.');
             console.error('Checkout error:', err);
         }
     };
@@ -209,6 +213,12 @@ const Checkout = () => {
                                 <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> Placing Order...</>
                             ) : 'Place Order LKR ' + totalPrice.toLocaleString()}
                         </button>
+
+                        {status === 'error' && errorMessage && (
+                            <div className="p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 text-sm font-medium text-center">
+                                ❌ {errorMessage}
+                            </div>
+                        )}
                     </form>
                 </div>
 
