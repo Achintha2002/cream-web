@@ -1,4 +1,4 @@
-# 🌿 Raani Cream - Premium E-Commerce Platform
+#  Raani Cream - Premium E-Commerce Platform
 
 ![MERN Stack](https://img.shields.io/badge/Stack-MERN-green.svg)
 ![React](https://img.shields.io/badge/Frontend-React.js%20%2B%20Vite-blue.svg)
