@@ -131,4 +131,3 @@ npm run dev
 *(Ensure environment variables are properly set in the respective hosting platforms during deployment, particularly `CLIENT_URL` in the backend and `VITE_API_URL` in the frontend).*
 
 ---
-*Developed with ❤️ by Achintha*
