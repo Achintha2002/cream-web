@@ -8,16 +8,16 @@
 
 A modern, fully-featured MERN stack e-commerce web application built for a premium skincare brand. This platform offers a seamless shopping experience for customers and a comprehensive administrative dashboard for store managers.
 
-## 🚀 Live Demo
+##  Live Demo
 
 - **Frontend (Vercel)**: [https://cream-web-ten.vercel.app](https://cream-web-ten.vercel.app)
 - **Backend API (Render)**: [https://cream-web-backend.onrender.com](https://cream-web-backend.onrender.com)
 
 ---
 
-## ✨ Features
+##  Features
 
-### 🛍️ Customer Experience
+### Customer Experience
 - **Interactive Product Catalog**: Beautiful product display with filtering and details.
 - **Dynamic Shopping Cart**: Real-time cart updates with a sliding drawer UI.
 - **Secure Authentication**: User registration, login, and password recovery.
@@ -31,14 +31,14 @@ A modern, fully-featured MERN stack e-commerce web application built for a premi
 - **Customer Inquiries**: Read and reply directly to messages sent by customers.
 - **User Management**: Add new administrative users to the system.
 
-### 🎨 UI / UX
+###  UI / UX
 - Premium, glassmorphism-inspired aesthetic with a nature-themed color palette.
 - Fully responsive design optimized for mobile, tablet, and desktop viewing.
 - Smooth micro-animations using Framer Motion.
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 ### Frontend (Client)
 - **Framework**: React.js 18 (Bootstrapped with Vite)
@@ -55,7 +55,7 @@ A modern, fully-featured MERN stack e-commerce web application built for a premi
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 cream-web/
@@ -78,7 +78,7 @@ cream-web/
 
 ---
 
-## 💻 Local Development Setup
+##  Local Development Setup
 
 To run this project locally, follow these steps:
 
@@ -123,7 +123,7 @@ npm run dev
 
 ---
 
-## 🚀 Deployment
+##  Deployment
 
 - The **Frontend** is configured for deployment on **Vercel** (uses `vite build`).
 - The **Backend** is configured for deployment on **Render** as a Node.js Web Service.
