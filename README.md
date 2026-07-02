@@ -24,7 +24,7 @@ A modern, fully-featured MERN stack e-commerce web application built for a premi
 - **Profile Management**: Users can track their order history and update profile details.
 - **Contact System**: Direct inquiry submission to the store administrators.
 
-### 👑 Admin Console
+### Admin Console
 - **Analytics Dashboard**: Real-time insights into total sales, order status ratios, and best-selling products.
 - **Order Management**: Process orders, update shipping statuses, and track fulfillment.
 - **Inventory Control**: Add new products, adjust stock levels, and receive **low-stock alerts**.
