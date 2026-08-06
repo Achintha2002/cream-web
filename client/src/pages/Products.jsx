@@ -42,50 +42,57 @@ const ProductCard = ({ product, onAddToCart }) => {
 
     return (
         <div 
-            className="group relative bg-transparent rounded-3xl w-full h-[480px] perspective-1000"
+            className="group relative bg-transparent rounded-2xl sm:rounded-3xl w-full h-[370px] sm:h-[480px] perspective-1000"
             onMouseLeave={() => setIsFlipped(false)}
         >
             <div className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                 
                 {/* --- FRONT OF CARD --- */}
                 <div 
-                    className="absolute w-full h-full backface-hidden bg-white rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 flex flex-col cursor-pointer"
+                    className="absolute w-full h-full backface-hidden bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg border border-green-50 hover:border-green-200 hover:shadow-2xl transition duration-500 flex flex-col cursor-pointer"
                     onClick={() => setIsFlipped(true)}
                 >
-                    <div className="h-60 overflow-hidden bg-green-50 relative flex items-center justify-center p-8">
+                    <div className="h-40 sm:h-60 overflow-hidden bg-green-50 relative flex items-center justify-center p-4 sm:p-8">
                         <img
                             src={getImage(product.image)}
                             alt={product.name}
-                            className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition duration-500 shadow-md"
+                            className="w-full h-full object-contain sm:object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition duration-500 shadow-md"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition flex items-center justify-center pointer-events-none">
-                            <span className="opacity-0 group-hover:opacity-100 bg-white/90 text-green-800 text-xs font-bold px-4 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition duration-300 pointer-events-none">
+                            <span className="opacity-0 group-hover:opacity-100 bg-white/90 text-green-800 text-xs font-bold px-4 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition duration-300 pointer-events-none hidden sm:inline-block">
                                 Tap for Details ↺
                             </span>
                         </div>
+                        {/* Mobile flip indicator button */}
+                        <button
+                            onClick={(e) => { e.stopPropagation(); setIsFlipped(true); }}
+                            className="sm:hidden absolute bottom-2 right-2 bg-white/90 text-green-800 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1 z-10"
+                        >
+                            <span>↺ Wisthara</span>
+                        </button>
                         {product.isFeatured && (
-                            <div className="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 pointer-events-none flex items-center gap-1">
-                                <span className="text-yellow-300">★</span> FEATURED
+                            <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 bg-green-600 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-full shadow-lg z-10 pointer-events-none flex items-center gap-1">
+                                <span className="text-yellow-300">★</span> <span className="hidden sm:inline">FEATURED</span>
                             </div>
                         )}
                         {product.stock === 0 && (
                             <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-2xl z-10 pointer-events-none">
-                                <span className="text-white font-bold text-lg">Out of Stock</span>
+                                <span className="text-white font-bold text-xs sm:text-lg">Out of Stock</span>
                             </div>
                         )}
                     </div>
-                    <div className="p-6 flex-1 flex flex-col justify-between pointer-events-none">
+                    <div className="p-3.5 sm:p-6 flex-1 flex flex-col justify-between pointer-events-none">
                         <div>
-                            <div className="text-green-600 text-sm font-bold mb-1 uppercase tracking-wide">{product.category}</div>
-                            <h3 className="text-xl font-serif font-bold mb-2 text-green-900">{product.name}</h3>
-                            <p className="text-gray-500 text-sm mb-4 leading-relaxed line-clamp-2">{product.description}</p>
+                            <div className="text-green-600 text-[10px] sm:text-sm font-bold mb-0.5 sm:mb-1 uppercase tracking-wide">{product.category}</div>
+                            <h3 className="text-xs sm:text-xl font-serif font-bold mb-1 sm:mb-2 text-green-900 line-clamp-2 leading-snug">{product.name}</h3>
+                            <p className="hidden sm:block text-gray-500 text-sm mb-4 leading-relaxed line-clamp-2">{product.description}</p>
                         </div>
-                        <div className="flex justify-between items-center border-t border-green-50 pt-4 mt-auto">
-                            <span className="text-xl font-bold text-green-800">LKR {product.price.toLocaleString()}</span>
+                        <div className="flex flex-col sm:flex-row justify-between items-center gap-1.5 sm:gap-0 border-t border-green-50 pt-2 sm:pt-4 mt-auto">
+                            <span className="text-xs sm:text-xl font-bold text-green-800">LKR {product.price.toLocaleString()}</span>
                             <button
                                 disabled={product.stock === 0}
                                 onClick={(e) => { e.stopPropagation(); onAddToCart(product); }}
-                                className="bg-green-800 text-white px-5 py-2 text-sm rounded-full hover:bg-green-700 transition shadow-md hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto"
+                                className="w-full sm:w-auto bg-green-800 text-white px-3 sm:px-5 py-1.5 sm:py-2 text-[11px] sm:text-sm rounded-full hover:bg-green-700 transition shadow-md hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto font-bold sm:font-normal"
                             >
                                 {product.stock === 0 ? 'Sold Out' : 'Add to Cart'}
                             </button>
@@ -95,43 +102,43 @@ const ProductCard = ({ product, onAddToCart }) => {
 
                 {/* --- BACK OF CARD --- */}
                 <div 
-                    className="absolute w-full h-full backface-hidden bg-green-950 rounded-3xl overflow-hidden shadow-2xl border border-green-800 rotate-y-180 p-6 flex flex-col text-white cursor-pointer"
+                    className="absolute w-full h-full backface-hidden bg-green-950 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-green-800 rotate-y-180 p-4 sm:p-6 flex flex-col text-white cursor-pointer"
                     onClick={() => setIsFlipped(false)}
                 >
-                    <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-2xl font-serif font-bold text-green-50">{product.name}</h3>
+                    <div className="flex justify-between items-start mb-2 sm:mb-4">
+                        <h3 className="text-sm sm:text-2xl font-serif font-bold text-green-50 line-clamp-1">{product.name}</h3>
                         <button 
                             onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
-                            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition flex-shrink-0"
+                            className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition flex-shrink-0 text-xs sm:text-base ml-2"
                         >
                             ✕
                         </button>
                     </div>
                     
-                    <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar pointer-events-auto cursor-default">
-                        <h4 className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
-                            <span className="w-4 h-[1px] bg-green-400"></span>
+                    <div className="flex-1 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar pointer-events-auto cursor-default">
+                        <h4 className="text-green-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1 sm:mb-2 flex items-center gap-1.5 sm:gap-2">
+                            <span className="w-3 sm:w-4 h-[1px] bg-green-400"></span>
                             Full Description
                         </h4>
-                        <p className="text-stone-300 text-sm leading-relaxed mb-6">{product.description}</p>
+                        <p className="text-stone-300 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-6">{product.description}</p>
                         
-                        <div className="bg-white/5 rounded-2xl p-4 border border-white/10 mb-4">
-                            <div className="flex justify-between items-center mb-3">
-                                <span className="text-stone-400 text-xs uppercase tracking-wider">Availability</span>
-                                <span className="text-white font-bold text-sm">{product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}</span>
+                        <div className="bg-white/5 rounded-xl sm:rounded-2xl p-2.5 sm:p-4 border border-white/10 mb-2 sm:mb-4 text-xs">
+                            <div className="flex justify-between items-center mb-1.5 sm:mb-3">
+                                <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wider">Availability</span>
+                                <span className="text-white font-bold text-xs sm:text-sm">{product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-stone-400 text-xs uppercase tracking-wider">Category</span>
-                                <span className="text-white font-bold text-sm">{product.category}</span>
+                                <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wider">Category</span>
+                                <span className="text-white font-bold text-xs sm:text-sm">{product.category}</span>
                             </div>
                         </div>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-white/10 pointer-events-auto">
+                    <div className="mt-2 sm:mt-4 pt-2 sm:pt-4 border-t border-white/10 pointer-events-auto">
                         <button
                             disabled={product.stock === 0}
                             onClick={(e) => { e.stopPropagation(); onAddToCart(product); setIsFlipped(false); }}
-                            className="w-full bg-white text-green-950 py-3 rounded-xl font-bold hover:bg-green-50 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            className="w-full bg-white text-green-950 py-2 sm:py-3 rounded-xl font-bold text-xs sm:text-base hover:bg-green-50 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-1.5 sm:gap-2"
                         >
                             {product.stock === 0 ? 'Sold Out' : `Add to Cart — LKR ${product.price.toLocaleString()}`}
                         </button>
@@ -197,15 +204,15 @@ const Products = () => {
     return (
         <div className="pt-28">
             {/* Header */}
-            <header className="py-20 bg-green-50 text-center relative">
+            <header className="py-12 sm:py-20 bg-green-50 text-center relative px-4">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="w-96 h-96 bg-green-200 rounded-full blur-3xl absolute -top-20 -left-20 opacity-30"></div>
                     <div className="w-96 h-96 bg-yellow-100 rounded-full blur-3xl absolute bottom-0 right-0 opacity-30"></div>
                 </div>
-                <h1 className="text-5xl font-serif font-bold text-green-900 mb-4 relative z-10">
+                <h1 className="text-3xl sm:text-5xl font-serif font-bold text-green-900 mb-3 sm:mb-4 relative z-10">
                     {searchQuery ? `Search: "${searchQuery}"` : 'The Organic Collection'}
                 </h1>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto relative z-10">
+                <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto relative z-10">
                     {searchQuery ? `${products.length} products found matching your search.` : 'Safe, clean, and effective skincare straight from nature.'}
                 </p>
                 {searchQuery && (
@@ -219,22 +226,24 @@ const Products = () => {
             </header>
 
             {/* Category Filter */}
-            <section className="py-8 bg-white border-b border-stone-100">
-                <div className="max-w-7xl mx-auto px-4 flex gap-2 flex-wrap justify-center">
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={`filter-pill ${activeCategory === cat ? 'active' : ''}`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+            <section className="py-4 sm:py-8 bg-white border-b border-stone-100 sticky top-[70px] sm:static z-30 shadow-sm sm:shadow-none">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-1 sm:py-0 sm:flex-wrap sm:justify-center">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`filter-pill flex-shrink-0 whitespace-nowrap ${activeCategory === cat ? 'active' : ''}`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </section>
 
             {/* Products Grid */}
-            <section className="py-24 bg-white">
+            <section className="py-12 sm:py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {loading && (
                         <div className="flex flex-col items-center justify-center py-20 gap-4">
@@ -254,7 +263,7 @@ const Products = () => {
                         </div>
                     )}
                     {!loading && !error && products.length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 lg:gap-12">
                             {products.map(product => (
                                 <ProductCard key={product._id} product={product} onAddToCart={addToCart} />
                             ))}

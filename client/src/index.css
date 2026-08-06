@@ -150,26 +150,44 @@ h1, h2, h3, h4, .font-serif {
     border-color: #c9d5c2;
 }
 
-/* ─── Pill Filter ─────────────────────────────────────── */
+/* ─── Pill Filter & Scrollbar Utilities ──────────────── */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 .filter-pill {
-    padding: 0.4rem 1.25rem;
+    padding: 0.5rem 1.25rem;
     border-radius: 9999px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    transition: background 0.2s, color 0.2s;
+    font-size: 0.825rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid #E2DDD8;
     color: #4B5563;
     background: #fff;
     cursor: pointer;
+    user-select: none;
 }
 
-.filter-pill:hover { background: #F0EDE9; }
+.filter-pill:hover { 
+    background: #F4F1ED;
+    border-color: #D1CBC3;
+    color: #1b4332;
+}
+
+.filter-pill:active {
+    transform: scale(0.97);
+}
 
 .filter-pill.active {
     background: #1b4332;
     color: #fff;
     border-color: #1b4332;
+    box-shadow: 0 4px 12px rgba(27, 67, 50, 0.2);
 }
 
 /* ─── Section Utilities ───────────────────────────────── */
