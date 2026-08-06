@@ -20,13 +20,13 @@ const CartDrawer = () => {
             {/* Overlay */}
             {isCartOpen && (
                 <div
-                    className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-sm"
+                    className="fixed inset-0 bg-black/40 z-[110] backdrop-blur-sm"
                     onClick={() => setIsCartOpen(false)}
                 />
             )}
 
             {/* Drawer */}
-            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white z-[70] shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white z-[120] shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
 
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 bg-green-800 text-white">
