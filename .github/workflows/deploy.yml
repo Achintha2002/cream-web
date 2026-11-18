@@ -33,6 +33,10 @@ jobs:
 
       - name: Build
         run: cd client && npm run build
+        env:
+          # Set in GitHub: Settings -> Secrets and variables -> Actions -> Variables
+          # e.g. https://your-backend.onrender.com/api
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

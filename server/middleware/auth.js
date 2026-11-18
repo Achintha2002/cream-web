@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'raani_secret_jwt_key_123456';
+import { JWT_SECRET } from '../config.js';
 
 // Protect routes (Verify JWT token)
 export const protect = async (req, res, next) => {

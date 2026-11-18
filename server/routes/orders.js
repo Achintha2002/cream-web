@@ -1,4 +1,5 @@
 import express from 'express';
+import { JWT_SECRET } from '../config.js';
 import Order from '../models/Order.js';
 import sendEmail from '../utils/sendEmail.js';
 import { protect, authorize } from '../middleware/auth.js';
@@ -116,7 +117,7 @@ router.get('/my', protect, async (req, res) => {
              // Let's decode token here since protect middleware might not attach full user if not set properly in this project
              const token = req.headers.authorization.split(' ')[1];
              const jwt = await import('jsonwebtoken');
-             const decoded = jwt.verify(token, process.env.JWT_SECRET || 'raani_secret_jwt_key_123456');
+             const decoded = jwt.verify(token, JWT_SECRET);
              const User = (await import('../models/User.js')).default;
              const user = await User.findById(decoded.id);
              if(!user) return res.status(401).json({ success: false, message: 'User not found' });

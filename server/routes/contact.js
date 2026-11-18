@@ -1,4 +1,5 @@
 import express from 'express';
+import { JWT_SECRET } from '../config.js';
 import Contact from '../models/Contact.js';
 import { protect, authorize } from '../middleware/auth.js';
 
@@ -12,7 +13,7 @@ const getOptionalUser = (req) => {
         const authHeader = req.headers.authorization;
         if (authHeader && authHeader.startsWith('Bearer')) {
             const token = authHeader.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'raani_secret_jwt_key_123456');
+            const decoded = jwt.verify(token, JWT_SECRET);
             return decoded.id;
         }
     } catch (err) {

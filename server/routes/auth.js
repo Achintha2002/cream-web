@@ -7,7 +7,7 @@ import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'raani_secret_jwt_key_123456';
+import { JWT_SECRET } from '../config.js';
 const JWT_EXPIRE = '30d';
 
 // Generate Token Utility
